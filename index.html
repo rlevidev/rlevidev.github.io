@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,7 @@
 <meta name="description" content="Raí Levi, backend engineer working with Go and Java. Projects, contact and links.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0a0d12;
@@ -19,32 +19,52 @@
     --text-muted: #838b9c;
     --text-faint: #545b6b;
     --accent: #5eead4;
+    --accent-strong: #34d399;
     --accent-dim: #2f4a46;
     --status-live: #34d399;
     --status-wip: #fbbf24;
     --status-idle: #64748b;
+    --nav-bg: rgba(18, 21, 28, 0.55);
+    --shadow-glow: 0 0 4px rgba(94, 234, 212, 0.35), 0 0 22px rgba(52, 211, 153, 0.12);
 
     --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
     --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-serif: 'Playfair Display', Georgia, serif;
 
     --max-width: 780px;
+  }
+
+  html[data-theme="light"] {
+    --bg: #f5f4ef;
+    --surface: #ffffff;
+    --surface-hover: #f0efe8;
+    --border: rgba(10, 13, 18, 0.09);
+    --border-strong: rgba(10, 13, 18, 0.18);
+    --text: #14171d;
+    --text-muted: #52586a;
+    --text-faint: #8a8f9c;
+    --accent: #0d9488;
+    --accent-strong: #059669;
+    --accent-dim: #d9f2ee;
+    --status-live: #059669;
+    --status-wip: #b45309;
+    --status-idle: #8a8f9c;
+    --nav-bg: rgba(245, 244, 239, 0.65);
+    --shadow-glow: 0 0 4px rgba(13, 148, 136, 0.25), 0 0 22px rgba(5, 150, 105, 0.1);
   }
 
   @media (min-width: 900px) {
     :root { --max-width: 960px; }
   }
-
   @media (min-width: 1200px) {
     :root { --max-width: 1180px; }
   }
-
   @media (min-width: 1680px) {
     :root { --max-width: 1320px; }
   }
 
   * { box-sizing: border-box; }
-
-  html { -webkit-text-size-adjust: 100%; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 
   body {
     margin: 0;
@@ -54,9 +74,9 @@
     font-size: 16px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    transition: background 0.2s ease, color 0.2s ease;
   }
 
-  /* subtle grid texture, quiet, not decorative for its own sake */
   body::before {
     content: "";
     position: fixed;
@@ -70,9 +90,6 @@
     z-index: 0;
   }
 
-  /* ambient glow: two soft blurred fields drifting slowly behind the
-     content, like a system quietly doing work. Kept low-opacity so it
-     reads as atmosphere, not decoration. */
   body::after {
     content: "";
     position: fixed;
@@ -107,115 +124,420 @@
     padding: 0 clamp(24px, 4vw, 48px);
   }
 
+  /* ---------- nav ---------- */
+  .nav-outer {
+    position: sticky;
+    top: 14px;
+    z-index: 40;
+    display: flex;
+    justify-content: center;
+    padding: 0 clamp(16px, 3vw, 40px);
+    margin-bottom: 24px;
+  }
+
+  .nav-pill {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+    max-width: 920px;
+    padding: 8px 10px 8px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--nav-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  .nav-logo {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid var(--border-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--accent);
+    flex-shrink: 0;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+    justify-content: center;
+    margin-left: 0;
+  }
+
+  .nav-links a {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 999px;
+    transition: color 0.15s ease, background 0.15s ease;
+  }
+  .nav-links a:hover { color: var(--text); background: var(--surface-hover); }
+
+  .nav-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    border: 1px solid var(--border-strong);
+    background: transparent;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  }
+  .icon-btn:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-dim); }
+  #themeToggle { font-size: 20px; }
+  .icon-btn.lang { width: auto; padding: 0 12px; }
+
+  .nav-cta {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    text-decoration: none;
+    padding: 9px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--accent);
+    color: var(--bg);
+    background: var(--accent);
+    transition: background 0.15s ease, color 0.15s ease;
+    white-space: nowrap;
+  }
+  .nav-cta:hover { background: transparent; color: var(--accent); }
+
+  @media (max-width: 720px) {
+    .nav-links { display: none; }
+  }
+
   /* ---------- hero ---------- */
   .hero {
-    padding: 56px 0 72px;
-    border-bottom: 1px solid var(--border);
+    position: relative;
+    padding: 0 0 36px;
+  }
+
+  .side-label {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    writing-mode: vertical-rl;
+    font-family: var(--font-mono);
+    font-size: 17px;
+    letter-spacing: 0.35em;
+    color: var(--text-faint);
+    user-select: none;
+    z-index: 0;
+  }
+  .side-label.left { left: clamp(8px, 2vw, 22px); }
+  .side-label.right { right: clamp(8px, 2vw, 22px); transform: translateY(-50%) rotate(180deg); }
+
+  @media (max-width: 1100px) {
+    .side-label { display: none; }
+  }
+
+  .hero-layout {
+    display: flex;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .hero-col {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+  }
+
+  .hero-col-left {
+    flex: 0 0 310px;
+  }
+
+  .hero-col-right {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .hero-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    min-width: 0;
+  }
+
+  .hero-name-card {
+    flex: 0 0 auto;
+    padding: 34px 32px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 156px;
+  }
+
+  h1.name {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: clamp(4rem, 6.2vw, 5.5rem);
+    line-height: 0.88;
+    letter-spacing: -0.055em;
+    margin: 0;
+  }
+
+  .handle {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-faint);
+    margin: 18px 0 0;
+  }
+
+  .hero-meta-card {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 12px 20px;
+    min-height: 72px;
+  }
+
+  .hero-meta-text {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .status-line {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 7px;
+    flex: 0 0 auto;
+    padding: 7px 11px;
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
     font-family: var(--font-mono);
-    font-size: 13px;
+    font-size: 11px;
     color: var(--status-live);
-    margin-bottom: 24px;
   }
 
   .dot {
-    width: 7px;
-    height: 7px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: currentColor;
     flex-shrink: 0;
   }
-
   .dot.pulse {
     box-shadow: 0 0 0 0 currentColor;
     animation: pulse 2.2s ease-out infinite;
   }
 
-  @keyframes pulse {
-    0%   { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.55); }
-    70%  { box-shadow: 0 0 0 7px rgba(52, 211, 153, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+  .hero-intro-card {
+    flex: 1 1 auto;
+    padding: 28px 28px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
-  h1 {
-    font-family: var(--font-mono);
-    font-weight: 700;
-    font-size: clamp(2.1rem, 4vw, 3.4rem);
-    line-height: 1.15;
-    letter-spacing: -0.01em;
-    margin: 0 0 10px;
+  .headline {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: clamp(1.45rem, 2.35vw, 1.95rem);
+    line-height: 1.14;
+    letter-spacing: -0.04em;
+    max-width: none;
+    margin: 0 0 12px;
   }
-
-  .role {
-    font-family: var(--font-mono);
-    font-size: 15px;
-    color: var(--accent);
-    margin: 0 0 22px;
-  }
+  .headline .accent { color: var(--accent); }
 
   .bio {
-    max-width: 54ch;
+    max-width: 76ch;
     color: var(--text-muted);
-    font-size: 16px;
-    margin: 0 0 30px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    margin: 0;
   }
-
   .bio strong { color: var(--text); font-weight: 500; }
 
-  .cta-row {
+  .skill-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 7px;
+    margin-top: 18px;
   }
 
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+  .skill-tag {
     font-family: var(--font-mono);
-    font-size: 13px;
-    text-decoration: none;
-    padding: 10px 16px;
-    border-radius: 6px;
+    font-size: 10.5px;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
     border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    padding: 5px 9px;
+  }
+
+  .hero-links-card {
+    flex: 1 1 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 44px 1fr 1fr;
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .hero-location {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--text-muted);
+  }
+
+  .hero-location-left {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .hero-location svg { color: var(--text-faint); flex: 0 0 auto; }
+  .locale-clock { color: var(--accent); font-variant-numeric: tabular-nums; }
+
+  .hero-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 0;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    font-size: 13px;
+    font-weight: 500;
     color: var(--text);
-    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+    text-decoration: none;
+    transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
   }
-  .btn:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: var(--accent-dim);
+  .hero-link:hover {
+    border-color: var(--border-strong);
+    background: var(--surface-hover);
+    transform: translateY(-1px);
   }
-  .btn.primary {
-    border-color: var(--accent);
-    color: var(--bg);
-    background: var(--accent);
+  .hero-link svg {
+    width: 17px;
+    height: 17px;
+    flex: 0 0 auto;
+    color: var(--text-faint);
   }
-  .btn.primary:hover {
-    background: transparent;
-    color: var(--accent);
+  .hero-link:hover svg { color: var(--accent); }
+
+  .hero-link--soon {
+    opacity: 0.4;
+    cursor: default;
+    pointer-events: none;
+    font-style: italic;
+  }
+
+  @media (max-width: 859px) {
+    .hero-layout {
+      flex-direction: column;
+    }
+    .hero-col-left,
+    .hero-col-right {
+      flex: 1 1 auto;
+    }
+    .hero-name-card {
+      min-height: 220px;
+    }
+    .hero-intro-card {
+      min-height: 220px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .hero-layout {
+      gap: 10px;
+    }
+    .hero-col {
+      gap: 10px;
+    }
+    .hero-name-card { min-height: 210px; }
+    .hero-meta-card { min-height: 64px; }
+    .hero-intro-card { min-height: 0; padding: 24px 22px; }
+    .hero-links-card { grid-template-rows: 42px 1fr 1fr; }
+    .hero-meta-text { white-space: normal; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dot.pulse { animation: none; }
   }
 
   /* ---------- section label ---------- */
   .section {
-    padding: 56px 0;
-    border-bottom: 1px solid var(--border);
+    position: relative;
+    padding: 64px 0;
+    border-top: 1px solid var(--border);
   }
-  .section:last-of-type { border-bottom: none; }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
 
   .eyebrow {
     font-family: var(--font-mono);
     font-size: 13px;
     color: var(--text-faint);
-    margin: 0 0 28px;
+    margin: 0;
     user-select: none;
   }
   .eyebrow::before { content: "// "; color: var(--border-strong); }
+
+  .section-title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    font-weight: 600;
+    margin: 6px 0 0;
+  }
+
+  .see-all {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--accent);
+    text-decoration: none;
+    white-space: nowrap;
+  }
 
   /* ---------- project cards ---------- */
   .projects {
@@ -223,17 +545,21 @@
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 16px;
   }
+  .projects .card.featured { grid-column: span 2; }
+  @media (max-width: 700px) {
+    .projects .card.featured { grid-column: span 1; }
+  }
 
   .card {
     display: flex;
     flex-direction: column;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 22px;
+    border-radius: 12px;
+    padding: 24px;
     text-decoration: none;
     color: inherit;
-    transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+    transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
   }
 
   .card:hover {
@@ -241,6 +567,12 @@
     background: var(--surface-hover);
     transform: translateY(-2px);
   }
+
+  .card.featured {
+    border-color: rgba(52, 211, 153, 0.35);
+    box-shadow: var(--shadow-glow);
+  }
+  .card.featured:hover { border-color: var(--accent-strong); }
 
   .card-status {
     display: inline-flex;
@@ -250,7 +582,6 @@
     font-size: 12px;
     margin-bottom: 14px;
   }
-
   .card-status.live { color: var(--status-live); }
   .card-status.wip { color: var(--status-wip); }
   .card-status.done { color: var(--status-idle); }
@@ -294,17 +625,253 @@
     align-items: center;
     gap: 5px;
   }
+  .card-open .arrow { transition: transform 0.15s ease; }
+  .card:hover .card-open .arrow { transform: translateX(3px); }
 
-  .card-open .arrow {
-    transition: transform 0.15s ease;
+  /* ---------- trajectory ---------- */
+  .trajectory {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
-  .card:hover .card-open .arrow {
-    transform: translateX(3px);
+  @media (min-width: 780px) {
+    .trajectory { grid-template-columns: 1fr 1fr; }
   }
+
+  .traj-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+  }
+
+  .traj-panel-title {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin: 0 0 20px;
+  }
+
+  .traj-entry {
+    display: flex;
+    gap: 14px;
+    padding: 18px 0;
+    border-top: 1px solid var(--border);
+  }
+  .traj-entry:first-of-type { border-top: none; padding-top: 0; }
+
+  .traj-entry--soon { opacity: 0.45; }
+  .traj-logo--soon {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--text-faint);
+  }
+  .traj-soon-label { font-style: italic; }
+
+  .traj-logo {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    background: var(--accent-dim);
+    color: var(--accent);
+    border: 1px solid var(--border-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  .traj-body { flex: 1; min-width: 0; }
+
+  .traj-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .traj-org {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 14.5px;
+    margin: 0;
+  }
+
+  .traj-period {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--text-faint);
+    white-space: nowrap;
+  }
+
+  .traj-role {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 2px 0 10px;
+  }
+
+  /* ---------- certifications ---------- */
+  .certs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+  }
+
+  .cert-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+  }
+
+  .cert-issuer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .cert-badge {
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    background: var(--accent-dim);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+
+  .cert-name {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 13.5px;
+    margin: 0 0 3px;
+  }
+
+  .cert-meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-faint);
+    margin: 0;
+  }
+
+  .cert-card--soon { opacity: 0.45; }
+  .cert-badge--soon {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--text-faint);
+  }
+  .cert-soon-label { font-style: italic; }
+
+  .cert-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--status-live);
+    margin-top: 12px;
+  }
+
+  /* ---------- footer CTA ---------- */
+  .cta-section { border-top: 1px solid var(--border); padding: 72px 0 40px; }
+
+  .cta-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: clamp(28px, 5vw, 48px);
+  }
+
+  .cta-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+
+  .cta-title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.7rem, 4vw, 2.5rem);
+    font-weight: 600;
+    margin: 0;
+    max-width: 14ch;
+  }
+
+  .cta-available {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    white-space: nowrap;
+    padding-top: 8px;
+  }
+
+  .cta-email-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    border: 1px solid var(--border-strong);
+    border-radius: 10px;
+    padding: 18px 20px;
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.15s ease, background 0.15s ease;
+    margin-bottom: 20px;
+  }
+  .cta-email-row:hover { border-color: var(--accent); background: var(--accent-dim); }
+
+  .cta-email {
+    font-family: var(--font-mono);
+    font-size: clamp(1rem, 2.4vw, 1.3rem);
+    font-weight: 600;
+  }
+
+  .cta-email-sub { font-size: 13px; color: var(--text-muted); }
+
+  .cta-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+  }
+
+  .cta-link-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .cta-link-card:hover { border-color: var(--accent); background: var(--accent-dim); }
+  .cta-link-card .cta-link-sub { display: block; font-size: 11px; color: var(--text-faint); margin-top: 2px; }
 
   /* ---------- footer ---------- */
-  footer {
-    padding: 36px 0 56px;
+  footer.site-footer {
+    padding: 28px 0 56px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -314,61 +881,136 @@
     font-size: 12px;
     color: var(--text-faint);
   }
-
-  footer a {
-    color: var(--text-faint);
-    text-decoration: none;
-  }
-  footer a:hover { color: var(--accent); }
+  footer.site-footer a { color: var(--text-faint); text-decoration: none; }
+  footer.site-footer a:hover { color: var(--accent); }
 
   @media (prefers-reduced-motion: reduce) {
     .dot.pulse { animation: none; }
-    .card, .btn, .card-open .arrow { transition: none; }
+    .card, .hero-link, .cta-link-card, .cta-email-row, .card-open .arrow { transition: none; }
     body::after { animation: none; }
+    html { scroll-behavior: auto; }
   }
 </style>
 </head>
 <body>
 
-<div class="wrap">
+<span class="side-label left" data-i18n="side1">BACKEND</span>
+<span class="side-label right" data-i18n="side2">ENGINEER</span>
+
+<div class="wrap" id="top">
+
+  <div class="nav-outer">
+    <nav class="nav-pill">
+      <div class="nav-links">
+        <a href="#projects" data-i18n="navProjects">Projetos</a>
+        <a href="#trajectory" data-i18n="navTrajectory">Trajetória</a>
+        <a href="#certs" data-i18n="navCerts">Certificações</a>
+      </div>
+      <div class="nav-right">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Alternar tema" title="Alternar tema">☀</button>
+        <button class="icon-btn" id="langToggle" type="button" aria-label="Alternar idioma" title="Alternar idioma">🇺🇸</button>
+      </div>
+    </nav>
+  </div>
 
   <header class="hero">
-    <div class="status-line">
-      <span class="dot pulse"></span>
-      available for opportunities
-    </div>
+    <div class="hero-layout">
 
-    <h1>Raí Levi</h1>
-    <p class="role">Backend Engineer · Go &amp; Java</p>
+      <div class="hero-col hero-col-left">
+        <div class="hero-card hero-name-card">
+          <div>
+            <h1 class="name">Raí<br>Levi</h1>
+            <p class="handle">— @rlevidev</p>
+          </div>
+        </div>
 
-    <p class="bio">
-      I build backend services and APIs, mostly in <strong>Go</strong> and <strong>Java</strong>.
-      I care about the parts most people skip, deployment and monitoring, the
-      stuff that keeps a system alive after the demo. Lately I've been pairing
-      that with AI-assisted workflows to move faster without cutting corners.
-    </p>
+        <div class="hero-card hero-links-card">
+          <div class="hero-location">
+            <div class="hero-location-left">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <span data-i18n="locale">Fortaleza, BR · GMT-3</span>
+            </div>
+            <span class="locale-clock" id="liveClock">--:--:--</span>
+          </div>
+          <a class="hero-link" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+            <span>CV</span>
+          </a>
+          <a class="hero-link" href="https://www.linkedin.com/in/rlevidev/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
+            <span>LinkedIn</span>
+          </a>
+          <a class="hero-link" href="https://github.com/rlevidev" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.562 21.8 24 17.302 24 12 24 5.373 18.627 0 12 0z"></path></svg>
+            <span>GitHub</span>
+          </a>
+          <div class="hero-link hero-link--soon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            <span>Em breve...</span>
+          </div>
+        </div>
+      </div>
 
-    <div class="cta-row">
-      <a class="btn primary" href="#projects">View projects</a>
-      <a class="btn" href="https://github.com/rlevidev" target="_blank" rel="noopener">GitHub ↗</a>
-      <a class="btn" href="https://www.linkedin.com/in/rlevidev/" target="_blank" rel="noopener">LinkedIn ↗</a>
-      <a class="btn" href="mailto:rlevi.dev@gmail.com">Email ↗</a>
+      <div class="hero-col hero-col-right">
+        <div class="hero-card hero-meta-card">
+          <div class="hero-meta-text" data-i18n="heroMetaText">Backend Engineer &nbsp;/&nbsp; Go & Java &nbsp;/&nbsp; Fortaleza, BR</div>
+          <span class="status-line">
+            <span class="dot pulse"></span>
+            <span data-i18n="status">disponível</span>
+          </span>
+        </div>
+
+        <div class="hero-card hero-intro-card">
+          <h2 class="headline" data-i18n="headline">Engenheiro Backend. Construindo <span class="accent">APIs resilientes</span>.</h2>
+          <p class="bio" data-i18n="bio">
+            Construo serviços e APIs de backend, principalmente em <strong>Go</strong> e <strong>Java</strong>.
+            Gosto das partes que a maioria pula — deploy e observabilidade, o que mantém
+            um sistema vivo depois da demo. Ultimamente venho combinando isso com
+            fluxos assistidos por IA para ir mais rápido sem cortar caminho.
+          </p>
+        </div>
+      </div>
+
     </div>
   </header>
 
   <section class="section" id="projects">
-    <p class="eyebrow">projects</p>
+    <div class="section-head">
+      <div>
+        <p class="eyebrow" data-i18n="eyebrowProjects">projects</p>
+        <h2 class="section-title" data-i18n="titleProjects">Projetos Destaque</h2>
+      </div>
+      <a class="see-all" href="https://github.com/rlevidev" target="_blank" rel="noopener" data-i18n="seeAllProjects">Ver todos ↗</a>
+    </div>
 
     <div class="projects">
 
+      <a class="card featured" href="https://rlevidev.github.io/rinha-2026" target="_blank" rel="noopener">
+        <span class="card-status done">
+          <span class="dot"></span> <span data-i18n="statusDone">concluído</span>
+        </span>
+        <h3 class="card-title">Rinha de Backend 2026</h3>
+        <p class="card-desc" data-i18n="descRinha">
+          API de detecção de fraude construída para a Rinha de Backend, uma competição
+          brasileira de backend. Compara transações de cartão contra 100 mil registros de
+          referência usando busca por similaridade vetorial, sob limites rígidos de CPU e memória.
+        </p>
+        <div class="card-tags">
+          <span class="tag">Go</span>
+          <span class="tag">Vector Search</span>
+          <span class="tag">Performance</span>
+        </div>
+        <span class="card-open"><span data-i18n="viewCode">ver código</span> <span class="arrow">→</span></span>
+      </a>
+
       <a class="card" href="https://rlevidev.github.io/curriculo-builder" target="_blank" rel="noopener">
         <span class="card-status wip">
-          <span class="dot"></span> in development
+          <span class="dot"></span> <span data-i18n="statusWip">em desenvolvimento</span>
         </span>
         <h3 class="card-title">Currículo Builder</h3>
-        <p class="card-desc">
-          ATS-friendly resume generator. Fills a LaTeX template from structured
-          input and compiles it to PDF. Go backend, static frontend.
+        <p class="card-desc" data-i18n="descCurriculo">
+          Gerador de currículo ATS-friendly. Preenche um template LaTeX a partir de
+          dados estruturados e compila para PDF. Backend em Go, frontend estático.
         </p>
         <div class="card-tags">
           <span class="tag">Go</span>
@@ -376,63 +1018,245 @@
           <span class="tag">Docker</span>
           <span class="tag">Render</span>
         </div>
-        <span class="card-open">open project <span class="arrow">→</span></span>
-      </a>
-
-      <a class="card" href="https://rlevidev.github.io/rinha-2026" target="_blank" rel="noopener">
-        <span class="card-status done">
-          <span class="dot"></span> completed
-        </span>
-        <h3 class="card-title">Rinha de Backend 2026</h3>
-        <p class="card-desc">
-          Fraud-detection API built for Rinha de Backend, a Brazilian backend
-          competition. Scores card transactions against 100k reference records
-          using vector similarity search, under strict CPU and memory limits.
-        </p>
-        <div class="card-tags">
-          <span class="tag">Go</span>
-        </div>
-        <span class="card-open">view code <span class="arrow">→</span></span>
+<span class="card-open"><span data-i18n="openProject">abrir projeto</span> <span class="arrow">→</span></span>
       </a>
 
       <a class="card" href="https://github.com/rlevidev/estoque-api" target="_blank" rel="noopener">
         <span class="card-status done">
-          <span class="dot"></span> completed
+          <span class="dot"></span> <span data-i18n="statusDone">concluído</span>
         </span>
         <h3 class="card-title">estoque-api</h3>
-        <p class="card-desc">
-          REST API for inventory and stock management.
+        <p class="card-desc" data-i18n="descEstoque">
+          API REST para gestão de estoque e inventário.
         </p>
         <div class="card-tags">
           <span class="tag">Java</span>
         </div>
-        <span class="card-open">view code <span class="arrow">→</span></span>
+        <span class="card-open"><span data-i18n="viewCode">ver código</span> <span class="arrow">→</span></span>
       </a>
 
       <a class="card" href="https://github.com/rlevidev/encurtador-url" target="_blank" rel="noopener">
         <span class="card-status done">
-          <span class="dot"></span> completed
+          <span class="dot"></span> <span data-i18n="statusDone">concluído</span>
         </span>
         <h3 class="card-title">encurtador-url</h3>
-        <p class="card-desc">
-          URL shortener service, accepted as a community solution to
-          Backend Brasil's technical challenge repository.
+        <p class="card-desc" data-i18n="descEncurtador">
+          Serviço encurtador de URLs, aceito como solução da comunidade no repositório
+          de desafios técnicos do Backend Brasil.
         </p>
         <div class="card-tags">
           <span class="tag">Java</span>
         </div>
-        <span class="card-open">view code <span class="arrow">→</span></span>
+        <span class="card-open"><span data-i18n="viewCode">ver código</span> <span class="arrow">→</span></span>
       </a>
 
     </div>
   </section>
 
-  <footer>
+  <section class="section" id="trajectory">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow" data-i18n="eyebrowTrajectory">trajectory</p>
+        <h2 class="section-title" data-i18n="titleTrajectory">Trajetória</h2>
+      </div>
+    </div>
+
+    <!-- ⚠️ Conteúdo placeholder — substitua pelos seus dados reais de formação e experiência. -->
+    <div class="trajectory">
+
+      <div class="traj-panel">
+        <p class="traj-panel-title" data-i18n="eduTitle">Educação</p>
+
+        <div class="traj-entry traj-entry--soon">
+          <div class="traj-logo traj-logo--soon">···</div>
+          <div class="traj-body">
+            <div class="traj-top">
+              <p class="traj-org traj-soon-label">Em breve...</p>
+              <span class="traj-period">... — ...</span>
+            </div>
+            <p class="traj-role">Bacharelado em Engenharia de Software</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="traj-panel">
+        <p class="traj-panel-title" data-i18n="workTitle">Trabalho</p>
+
+        <div class="traj-entry traj-entry--soon">
+          <div class="traj-logo traj-logo--soon">···</div>
+          <div class="traj-body">
+            <div class="traj-top">
+              <p class="traj-org traj-soon-label">Em breve...</p>
+              <span class="traj-period">... — ...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section" id="certs">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow" data-i18n="eyebrowCerts">certifications</p>
+        <h2 class="section-title" data-i18n="titleCerts">Certificações</h2>
+      </div>
+    </div>
+
+    <!-- ⚠️ Conteúdo placeholder — substitua pelas suas certificações reais. -->
+    <div class="certs">
+
+      <div class="cert-card cert-card--soon">
+        <div class="cert-issuer">
+          <div class="cert-badge cert-badge--soon">···</div>
+          <div>
+            <p class="cert-name cert-soon-label">Em breve...</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="cta-panel">
+      <div class="cta-top">
+        <h2 class="cta-title" data-i18n="ctaTitle">Vamos construir algo juntos?</h2>
+        <span class="cta-available" data-i18n="ctaAvailable">Aberto a projetos e freelas</span>
+      </div>
+
+      <a class="cta-email-row" href="mailto:rlevi.dev@gmail.com">
+        <span>
+          <span class="cta-email">rlevi.dev@gmail.com</span><br>
+          <span class="cta-email-sub" data-i18n="ctaEmailSub">Backend, deploy e monitoramento — sem enrolação.</span>
+        </span>
+        <span class="card-open"><span class="arrow">→</span></span>
+      </a>
+
+      <div class="cta-links">
+        <a class="cta-link-card" href="https://www.linkedin.com/in/rlevidev/" target="_blank" rel="noopener">
+          LinkedIn <span class="cta-link-sub">@rlevidev</span>
+        </a>
+        <a class="cta-link-card" href="https://github.com/rlevidev" target="_blank" rel="noopener">
+          GitHub <span class="cta-link-sub">@rlevidev</span>
+        </a>
+        <a class="cta-link-card" href="mailto:rlevi.dev@gmail.com">
+          <span data-i18n="ctaEmailLink">Email</span> <span class="cta-link-sub">rlevi.dev@gmail.com</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
     <span>© 2026 Raí Levi</span>
     <a href="mailto:rlevi.dev@gmail.com">rlevi.dev@gmail.com</a>
   </footer>
 
 </div>
+
+<script>
+  // ---------- theme toggle ----------
+  const themeBtn = document.getElementById('themeToggle');
+  const root = document.documentElement;
+  themeBtn.addEventListener('click', () => {
+    const isDark = root.getAttribute('data-theme') === 'dark';
+    root.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    themeBtn.textContent = isDark ? '☾' : '☀';
+  });
+
+  // ---------- live clock (São Paulo) ----------
+  function updateClock() {
+    const el = document.getElementById('liveClock');
+    const now = new Date();
+    const formatted = new Intl.DateTimeFormat('pt-BR', {
+      timeZone: 'America/Fortaleza',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    }).format(now);
+    el.textContent = formatted;
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  // ---------- i18n ----------
+  const dict = {
+    pt: {
+      navProjects: 'Projetos', navTrajectory: 'Trajetória', navCerts: 'Certificações', navContact: 'Contato',
+      side1: 'BACKEND', side2: 'ENGINEER',
+      locale: 'Fortaleza, BR · GMT-3',
+      heroMetaText: 'Engenheiro Backend &nbsp;/&nbsp; Go & Java &nbsp;/&nbsp; Fortaleza, BR',
+      heroEmail: 'Email ↗', heroProjects: 'Ver projetos ↗',
+      status: 'disponível',
+      headline: 'Engenheiro Backend. Construindo <span class="accent">APIs resilientes</span>.',
+      bio: 'Construo serviços e APIs de backend, principalmente em <strong>Go</strong> e <strong>Java</strong>. Gosto das partes que a maioria pula — deploy e observabilidade, o que mantém um sistema vivo depois da demo. Ultimamente venho combinando isso com fluxos assistidos por IA para ir mais rápido sem cortar caminho.',
+      eyebrowProjects: 'projects', titleProjects: 'Projetos Destaque', seeAllProjects: 'Ver todos ↗',
+      statusDone: 'concluído', statusWip: 'em desenvolvimento', viewCode: 'ver código', openProject: 'abrir projeto',
+      descRinha: 'API de detecção de fraude construída para a Rinha de Backend, uma competição brasileira de backend. Compara transações de cartão contra 100 mil registros de referência usando busca por similaridade vetorial, sob limites rígidos de CPU e memória.',
+      descCurriculo: 'Gerador de currículo ATS-friendly. Preenche um template LaTeX a partir de dados estruturados e compila para PDF. Backend em Go, frontend estático.',
+      descEstoque: 'API REST para gestão de estoque e inventário.',
+      descEncurtador: 'Serviço encurtador de URLs, aceito como solução da comunidade no repositório de desafios técnicos do Backend Brasil.',
+      eyebrowTrajectory: 'trajectory', titleTrajectory: 'Trajetória',
+      eduTitle: 'Educação', workTitle: 'Trabalho',
+      edu1org: 'Universidade Federal — Ceará', edu1role: 'Bacharelado em Ciência da Computação',
+      edu2org: 'Escola Técnica Estadual', edu2role: 'Técnico em Informática',
+      work1org: 'Empresa Atual', work1period: 'jan 2025 — atual', work1role: 'Engenheiro Backend',
+      work2org: 'Empresa Anterior', work2role: 'Desenvolvedor Java',
+      eyebrowCerts: 'certifications', titleCerts: 'Certificações',
+      cert1meta: 'Fundamentos', cert3meta: 'Desenvolvimento Backend', active: 'Ativo',
+      ctaTitle: 'Vamos construir algo juntos?', ctaAvailable: 'Aberto a projetos e freelas',
+      ctaEmailSub: 'Backend, deploy e monitoramento — sem enrolação.', ctaEmailLink: 'Email'
+    },
+    en: {
+      navProjects: 'Projects', navTrajectory: 'Trajectory', navCerts: 'Certifications', navContact: 'Contact',
+      side1: 'BACKEND', side2: 'ENGINEER',
+      locale: 'Fortaleza, BR · GMT-3',
+      heroMetaText: 'Backend Engineer &nbsp;/&nbsp; Go & Java &nbsp;/&nbsp; Fortaleza, BR',
+      heroEmail: 'Email ↗', heroProjects: 'View projects ↗',
+      status: 'available',
+      headline: 'Backend Engineer. Building <span class="accent">resilient APIs</span>.',
+      bio: 'I build backend services and APIs, mostly in <strong>Go</strong> and <strong>Java</strong>. I care about the parts most people skip — deployment and monitoring, the stuff that keeps a system alive after the demo. Lately I\'ve been pairing that with AI-assisted workflows to move faster without cutting corners.',
+      eyebrowProjects: 'projects', titleProjects: 'Featured Projects', seeAllProjects: 'View all ↗',
+      statusDone: 'completed', statusWip: 'in development', viewCode: 'view code', openProject: 'open project',
+      descRinha: 'Fraud-detection API built for Rinha de Backend, a Brazilian backend competition. Scores card transactions against 100k reference records using vector similarity search, under strict CPU and memory limits.',
+      descCurriculo: 'ATS-friendly resume generator. Fills a LaTeX template from structured input and compiles it to PDF. Go backend, static frontend.',
+      descEstoque: 'REST API for inventory and stock management.',
+      descEncurtador: 'URL shortener service, accepted as a community solution to Backend Brasil\'s technical challenge repository.',
+      eyebrowTrajectory: 'trajectory', titleTrajectory: 'Trajectory',
+      eduTitle: 'Education', workTitle: 'Work',
+      edu1org: 'Federal University — Ceará', edu1role: 'B.Sc. in Computer Science',
+      edu2org: 'State Technical School', edu2role: 'Information Technology, Technical Degree',
+      work1org: 'Current Company', work1period: 'Jan 2025 — present', work1role: 'Backend Engineer',
+      work2org: 'Previous Company', work2role: 'Java Developer',
+      eyebrowCerts: 'certifications', titleCerts: 'Certifications',
+      cert1meta: 'Fundamentals', cert3meta: 'Backend Development', active: 'Active',
+      ctaTitle: 'Let\'s build something together?', ctaAvailable: 'Open to projects and freelance',
+      ctaEmailSub: 'Backend, deploy and monitoring — no fluff.', ctaEmailLink: 'Email'
+    }
+  };
+
+  let currentLang = 'pt';
+  const langBtn = document.getElementById('langToggle');
+
+  function applyLang(lang) {
+    const t = dict[lang];
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (t[key] !== undefined) el.innerHTML = t[key];
+    });
+    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+    langBtn.textContent = lang === 'pt' ? '🇺🇸' : '🇧🇷';
+  }
+
+  langBtn.addEventListener('click', () => {
+    currentLang = currentLang === 'pt' ? 'en' : 'pt';
+    applyLang(currentLang);
+  });
+
+  applyLang(currentLang);
+</script>
 
 </body>
 </html>
