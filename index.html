@@ -1,1261 +1,766 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="dark">
+<html lang="pt-BR" data-theme="light" data-lang="pt">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Raí Levi | Backend Engineer</title>
 <meta name="description" content="Raí Levi, backend engineer working with Go and Java. Projects, contact and links.">
+<title>Raí Levi | Backend Engineer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0a0d12;
-    --surface: #12151c;
-    --surface-hover: #171b24;
-    --border: #20242e;
-    --border-strong: #2c313d;
-    --text: #e8eaf0;
-    --text-muted: #838b9c;
-    --text-faint: #545b6b;
-    --accent: #5eead4;
-    --accent-strong: #34d399;
-    --accent-dim: #2f4a46;
-    --status-live: #34d399;
-    --status-wip: #fbbf24;
-    --status-idle: #64748b;
-    --nav-bg: rgba(18, 21, 28, 0.55);
-    --shadow-glow: 0 0 4px rgba(94, 234, 212, 0.35), 0 0 22px rgba(52, 211, 153, 0.12);
-
-    --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
-    --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --font-serif: 'Playfair Display', Georgia, serif;
-
-    --max-width: 780px;
+  :root{
+    --bg:#F3EEDD;
+    --ink:#15130F;
+    --yellow:#F5C242;
+    --pink:#FF5C93;
+    --mint:#5FE0C0;
+    --violet:#9B8CFA;
+    --panel:#FFFFFF;
+    --shadow-color:#15130F;
+    --border:3px;
+    --radius:0px;
+  }
+  html[data-theme="dark"]{
+    --bg:#181611;
+    --ink:#F3EEDD;
+    --panel:#211E17;
+    --shadow-color:#000000;
   }
 
-  html[data-theme="light"] {
-    --bg: #f5f4ef;
-    --surface: #ffffff;
-    --surface-hover: #f0efe8;
-    --border: rgba(10, 13, 18, 0.09);
-    --border-strong: rgba(10, 13, 18, 0.18);
-    --text: #14171d;
-    --text-muted: #52586a;
-    --text-faint: #8a8f9c;
-    --accent: #0d9488;
-    --accent-strong: #059669;
-    --accent-dim: #d9f2ee;
-    --status-live: #059669;
-    --status-wip: #b45309;
-    --status-idle: #8a8f9c;
-    --nav-bg: rgba(245, 244, 239, 0.65);
-    --shadow-glow: 0 0 4px rgba(13, 148, 136, 0.25), 0 0 22px rgba(5, 150, 105, 0.1);
-  }
-
-  @media (min-width: 900px) {
-    :root { --max-width: 960px; }
-  }
-  @media (min-width: 1200px) {
-    :root { --max-width: 1180px; }
-  }
-  @media (min-width: 1680px) {
-    :root { --max-width: 1320px; }
-  }
-
-  * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
-
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font-sans);
-    font-size: 16px;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    transition: background 0.2s ease, color 0.2s ease;
-  }
-
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;overflow-x:hidden;}
+  body{margin:0;overflow-x:hidden;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Space Grotesk',sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
     background-image:
-      linear-gradient(var(--border) 1px, transparent 1px),
-      linear-gradient(90deg, var(--border) 1px, transparent 1px);
-    background-size: 64px 64px;
-    opacity: 0.15;
-    pointer-events: none;
-    z-index: 0;
+      radial-gradient(circle, rgba(21,19,15,0.08) 1px, transparent 1px),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420' viewBox='0 0 420 420'%3E%3Cg fill='none' stroke='%235b8f86' stroke-width='1.2' opacity='0.28'%3E%3Cpath d='M-20,60 Q90,10 210,60 T440,60'/%3E%3Cpath d='M-20,140 Q90,90 210,140 T440,140'/%3E%3Cpath d='M-20,220 Q90,170 210,220 T440,220'/%3E%3Cpath d='M-20,300 Q90,250 210,300 T440,300'/%3E%3Cpath d='M-20,380 Q90,330 210,380 T440,380'/%3E%3C/g%3E%3C/svg%3E");
+    background-size:22px 22px, 420px 420px;
+    background-position:0 0, 0 0;
+    background-repeat:repeat, repeat;
+    transition:background .2s ease,color .2s ease;
+  }
+  html[data-theme="dark"] body{
+    background-image:
+      radial-gradient(circle, rgba(243,238,221,0.06) 1px, transparent 1px),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420' viewBox='0 0 420 420'%3E%3Cg fill='none' stroke='%235b8f86' stroke-width='1.2' opacity='0.22'%3E%3Cpath d='M-20,60 Q90,10 210,60 T440,60'/%3E%3Cpath d='M-20,140 Q90,90 210,140 T440,140'/%3E%3Cpath d='M-20,220 Q90,170 210,220 T440,220'/%3E%3Cpath d='M-20,300 Q90,250 210,300 T440,300'/%3E%3Cpath d='M-20,380 Q90,330 210,380 T440,380'/%3E%3C/g%3E%3C/svg%3E");
+  }
+  a{color:inherit;}
+
+  /* ---------- outer page frame ---------- */
+  .page-frame{
+    position:relative;
+    max-width:1560px;
+    margin:26px auto;
+    border:4px solid var(--ink);
+    box-shadow:12px 12px 0 var(--shadow-color);
+    background:var(--bg);
+  }
+  .corner{position:absolute;width:22px;height:22px;pointer-events:none;z-index:60;}
+  .corner::before,.corner::after{content:"";position:absolute;background:var(--ink);}
+  .corner::before{width:100%;height:2px;top:0;left:0;}
+  .corner::after{width:2px;height:100%;top:0;left:0;}
+  .corner-tl{top:-11px;left:-11px;}
+  .corner-tr{top:-11px;right:-11px;transform:scaleX(-1);}
+  .corner-bl{bottom:-11px;left:-11px;transform:scaleY(-1);}
+  .corner-br{bottom:-11px;right:-11px;transform:scale(-1,-1);}
+  @media (max-width:700px){
+    .page-frame{margin:12px;border-width:3px;box-shadow:7px 7px 0 var(--shadow-color);}
+  }
+  .mono{font-family:'Space Mono',monospace;}
+  .wrap{max-width:1200px;margin:0 auto;padding-left:24px;padding-right:24px;}
+
+  /* ---------- generic brutal building blocks ---------- */
+  .hard{
+    border:var(--border) solid var(--ink);
+    box-shadow:6px 6px 0 var(--shadow-color);
+    background:var(--panel);
+  }
+  .chip{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:6px 12px;
+    border:2.5px solid var(--ink);
+    box-shadow:3px 3px 0 var(--shadow-color);
+    font-family:'Space Mono',monospace;
+    font-size:0.78rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+    background:var(--panel);
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:14px 22px;
+    border:var(--border) solid var(--ink);
+    box-shadow:5px 5px 0 var(--shadow-color);
+    font-weight:700;
+    font-size:0.95rem;
+    text-decoration:none;
+    color:var(--ink);
+    background:var(--panel);
+    cursor:pointer;
+    transition:transform .08s ease, box-shadow .08s ease;
+  }
+  .btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--shadow-color);}
+  .btn:active{transform:translate(1px,1px);box-shadow:3px 3px 0 var(--shadow-color);}
+  .btn-yellow{background:var(--yellow);}
+  .btn-pink{background:var(--pink);color:#180a10;}
+
+  .icon-btn{
+    width:40px;height:40px;
+    display:inline-flex;align-items:center;justify-content:center;
+    border:2.5px solid var(--ink);
+    background:var(--panel);
+    box-shadow:3px 3px 0 var(--shadow-color);
+    cursor:pointer;
+    font-size:1rem;
   }
 
-  body::after {
-    content: "";
-    position: fixed;
-    inset: -10%;
-    background:
-      radial-gradient(46rem 32rem at 15% 12%, rgba(94, 234, 212, 0.10), transparent 60%),
-      radial-gradient(38rem 30rem at 85% 68%, rgba(52, 211, 153, 0.07), transparent 60%);
-    filter: blur(10px);
-    pointer-events: none;
-    z-index: 0;
-    animation: drift 26s ease-in-out infinite alternate;
+  /* ---------- header ---------- */
+  header{
+    position:sticky;top:18px;z-index:50;
+    background:var(--yellow);
+    margin:18px 18px 0 18px;
+    border:var(--border) solid var(--ink);
+    box-shadow:6px 6px 0 var(--ink);
   }
-
-  @keyframes drift {
-    0%   { transform: translate(0, 0) scale(1); }
-    50%  { transform: translate(-2%, 3%) scale(1.05); }
-    100% { transform: translate(3%, -2%) scale(1); }
+  html[data-theme="dark"] header{background:var(--yellow);box-shadow:6px 6px 0 #15130F;border-color:#15130F;}
+  html[data-theme="dark"] header *{color:#15130F;}
+  html[data-theme="dark"] .brand-mark{background:#15130F;color:#F5C242;border-color:#15130F;}
+  html[data-theme="dark"] nav a:hover{border-color:#15130F;}
+  html[data-theme="dark"] .icon-btn{border-color:#15130F;}
+  html[data-theme="dark"] .header-cta{border-color:#15130F;box-shadow:4px 4px 0 #15130F;color:#0d1a15;}
+  html[data-theme="dark"] .header-cta:hover{box-shadow:6px 6px 0 #15130F;}
+  html[data-theme="dark"] .header-cta:active{box-shadow:2px 2px 0 #15130F;}
+  .header-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 32px;
+    max-width:none;margin:0;
+    gap:16px;flex-wrap:wrap;
   }
-
-  a { color: inherit; }
-  a:focus-visible, button:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
-    border-radius: 2px;
+  .brand{display:flex;align-items:center;gap:10px;}
+  .brand-mark{
+    width:44px;height:44px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--ink);
+    color:var(--yellow);
+    border:2.5px solid var(--ink);
+    font-family:'Space Mono',monospace;
+    font-weight:700;
+    font-size:0.9rem;
+    letter-spacing:-0.02em;
   }
-
-  .wrap {
-    position: relative;
-    z-index: 1;
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 0 clamp(24px, 4vw, 48px);
+  .brand-text .name{font-weight:800;font-size:1.05rem;letter-spacing:-0.01em;color:var(--ink);}
+  .brand-text .handle{font-family:'Space Mono',monospace;font-size:0.72rem;opacity:0.65;color:var(--ink);}
+  nav{
+    display:flex;gap:28px;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:1rem;font-weight:700;
+    position:absolute;left:50%;transform:translateX(-50%);
   }
-
-  /* ---------- nav ---------- */
-  .nav-outer {
-    position: sticky;
-    top: 14px;
-    z-index: 40;
-    display: flex;
-    justify-content: center;
-    padding: 0 clamp(16px, 3vw, 40px);
-    margin-bottom: 24px;
+  nav a{text-decoration:none;color:var(--ink);border-bottom:2px solid transparent;padding-bottom:2px;}
+  nav a:hover{border-color:var(--ink);}
+  .header-actions{display:flex;align-items:center;gap:10px;}
+  .icon-btn{
+    width:40px;height:40px;
+    display:inline-flex;align-items:center;justify-content:center;
+    border:2.5px solid var(--ink);
+    background:transparent;
+    box-shadow:none;
+    cursor:pointer;
+    font-size:1rem;
+    color:var(--ink);
   }
-
-  .nav-pill {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    width: 100%;
-    max-width: 920px;
-    padding: 8px 10px 8px 8px;
-    border-radius: 999px;
-    border: 1px solid var(--border);
-    background: var(--nav-bg);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+  .header-cta{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:10px 22px;
+    border:2.5px solid var(--ink);
+    box-shadow:4px 4px 0 var(--ink);
+    background:var(--mint);
+    color:#0d1a15;
+    font-weight:800;font-size:0.95rem;
+    text-decoration:none;
+    transition:transform .08s ease, box-shadow .08s ease;
   }
-
-  .nav-logo {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    border: 1px solid var(--border-strong);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-mono);
-    font-weight: 600;
-    font-size: 13px;
-    color: var(--accent);
-    flex-shrink: 0;
-    text-decoration: none;
-  }
-
-  .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    flex: 1;
-    justify-content: center;
-    margin-left: 0;
-  }
-
-  .nav-links a {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    color: var(--text-muted);
-    text-decoration: none;
-    padding: 8px 12px;
-    border-radius: 999px;
-    transition: color 0.15s ease, background 0.15s ease;
-  }
-  .nav-links a:hover { color: var(--text); background: var(--surface-hover); }
-
-  .nav-right {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .icon-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    width: 34px;
-    height: 34px;
-    border-radius: 999px;
-    border: 1px solid var(--border-strong);
-    background: transparent;
-    color: var(--text-muted);
-    font-family: var(--font-mono);
-    font-size: 12px;
-    cursor: pointer;
-    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
-  }
-  .icon-btn:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-dim); }
-  #themeToggle { font-size: 20px; }
-  .icon-btn.lang { width: auto; padding: 0 12px; }
-
-  .nav-cta {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    text-decoration: none;
-    padding: 9px 16px;
-    border-radius: 999px;
-    border: 1px solid var(--accent);
-    color: var(--bg);
-    background: var(--accent);
-    transition: background 0.15s ease, color 0.15s ease;
-    white-space: nowrap;
-  }
-  .nav-cta:hover { background: transparent; color: var(--accent); }
-
-  @media (max-width: 720px) {
-    .nav-links { display: none; }
-  }
+  .header-cta:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink);}
+  .header-cta:active{transform:translate(1px,1px);box-shadow:2px 2px 0 var(--ink);}
 
   /* ---------- hero ---------- */
-  .hero {
-    position: relative;
-    padding: 0 0 36px;
+  .hero{padding:64px 0 40px;}
+  .hero-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:56px;align-items:start;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--violet);
+    border:2.5px solid var(--ink);
+    box-shadow:3px 3px 0 var(--shadow-color);
+    padding:6px 12px;
+    font-family:'Space Mono',monospace;
+    font-size:0.75rem;font-weight:700;text-transform:uppercase;
+    margin-bottom:22px;
+  }
+  .eyebrow .dot{width:8px;height:8px;background:#1e7b4d;border-radius:50%;display:inline-block;}
+  h1.display{
+    font-weight:800;
+    font-size:clamp(2.6rem,6vw,4.6rem);
+    line-height:0.98;
+    letter-spacing:-0.02em;
+    margin:0 0 6px;
+    text-transform:uppercase;
+  }
+  .display-highlight{
+    display:inline-block;
+    background:var(--yellow);
+    border:var(--border) solid var(--ink);
+    box-shadow:6px 6px 0 var(--shadow-color);
+    padding:2px 16px;
+    margin:10px 0;
+  }
+  .lede{
+    font-family:'Space Mono',monospace;
+    font-size:0.95rem;
+    max-width:52ch;
+    margin:22px 0 8px;
+    line-height:1.7;
+  }
+  .byline{font-family:'Space Mono',monospace;font-size:0.8rem;opacity:0.7;margin-bottom:10px;}
+  .byline a{text-decoration:underline;}
+  .cta-row{display:flex;flex-wrap:wrap;gap:14px;margin:28px 0 30px;}
+  .stat-row{display:flex;flex-wrap:wrap;gap:14px;}
+  .stat{
+    border:var(--border) solid var(--ink);
+    box-shadow:4px 4px 0 var(--shadow-color);
+    background:var(--panel);
+    padding:12px 16px;
+    min-width:150px;
+  }
+  .stat b{display:block;font-size:1.05rem;}
+  .stat span{font-family:'Space Mono',monospace;font-size:0.7rem;text-transform:uppercase;opacity:0.7;}
+  .stat.y{background:var(--yellow);} .stat.m{background:var(--mint);} .stat.p{background:var(--pink);}
+
+  /* terminal card */
+  .term-wrap{position:relative;padding:18px 8px 30px 8px;}
+  .term-frame{
+    background:var(--yellow);
+    border:var(--border) solid var(--ink);
+    box-shadow:8px 8px 0 var(--shadow-color);
+    padding:20px;
+    position:relative;
+  }
+  .tape{
+    position:absolute;top:-18px;left:26px;
+    width:90px;height:34px;
+    background:#fdfaf0cc;
+    border:2px solid var(--ink);
+    transform:rotate(-7deg);
+  }
+  .pin{
+    position:absolute;bottom:-16px;right:-14px;
+    width:30px;height:30px;border-radius:50%;
+    background:var(--violet);border:2.5px solid var(--ink);
+  }
+  .note{
+    position:absolute;bottom:-22px;left:-20px;
+    width:64px;height:54px;
+    background:var(--pink);border:2.5px solid var(--ink);
+    transform:rotate(8deg);
+    box-shadow:3px 3px 0 var(--shadow-color);
+  }
+  .term-badge{
+    position:absolute;top:-20px;right:14px;
+    background:linear-gradient(135deg,var(--pink),var(--violet));
+    color:#fff;
+    border:2.5px solid var(--ink);
+    box-shadow:4px 4px 0 var(--shadow-color);
+    padding:6px 14px;
+    font-family:'Space Mono',monospace;font-weight:700;font-size:0.75rem;
+  }
+  .terminal{
+    background:#15130F;
+    border:2.5px solid var(--ink);
+    color:#DCE9DA;
+    font-family:'Space Mono',monospace;
+    font-size:0.82rem;
+    line-height:1.75;
+    padding:18px 18px 22px;
+  }
+  .term-dots{display:flex;gap:6px;margin-bottom:12px;}
+  .term-dots span{width:10px;height:10px;border-radius:50%;display:inline-block;}
+  .term-dots .r{background:#FF5C93;} .term-dots .a{background:var(--yellow);} .term-dots .g{background:var(--mint);}
+  .term-line .p{color:var(--mint);} .term-line .c{color:#F3EEDD;opacity:.55;}
+  .cursor{display:inline-block;width:8px;height:14px;background:var(--mint);vertical-align:middle;animation:blink 1s steps(1) infinite;}
+  @keyframes blink{50%{opacity:0;}}
+
+  /* ---------- skills marquee ---------- */
+  .marquee{
+    border-top:var(--border) solid var(--ink);
+    border-bottom:var(--border) solid var(--ink);
+    background:var(--panel);
+    overflow:hidden;
+    padding:20px 0;
+  }
+  .marquee-track{display:flex;width:max-content;animation:marquee-scroll 26s linear infinite;}
+  .marquee-set{display:flex;align-items:center;flex-shrink:0;}
+  .marquee-item{
+    display:inline-flex;align-items:center;gap:12px;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;font-size:1.15rem;
+    padding:0 34px;
+    white-space:nowrap;
+  }
+  .m-ico{
+    display:inline-flex;align-items:center;justify-content:center;
+    font-size:1.4rem;
+  }
+  .m-ico-img{display:block;width:28px;height:28px;object-fit:contain;}
+  .m-ico-claude{color:var(--ink);display:inline-flex;}
+  .m-ico.m-badge{
+    min-width:34px;height:34px;padding:0 6px;
+    border:2.5px solid var(--ink);
+    background:var(--yellow);
+    font-family:'Space Mono',monospace;font-weight:700;font-size:0.78rem;
+  }
+  @keyframes marquee-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  @media (prefers-reduced-motion:reduce){.marquee-track{animation:none;}}
+
+  /* ---------- sections ---------- */
+  section{padding:0;scroll-margin-top:110px;}
+  #contact{padding-top:150px;}
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:16px;margin:0 0 34px;padding-top:22px;}
+  .sec-eyebrow{font-family:'Space Mono',monospace;text-transform:uppercase;font-size:0.78rem;font-weight:700;opacity:0.6;letter-spacing:0.04em;display:block;margin-bottom:6px;}
+  .sec-title{font-size:clamp(1.8rem,3.4vw,2.6rem);font-weight:800;text-transform:uppercase;letter-spacing:-0.01em;margin:0;line-height:1.15;}
+  .sec-link{font-family:'Space Mono',monospace;font-weight:700;font-size:0.85rem;text-decoration:none;border-bottom:2px solid var(--ink);}
+
+  /* projects */
+  .project-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;}
+  .card{
+    background:var(--panel);
+    border:var(--border) solid var(--ink);
+    box-shadow:6px 6px 0 var(--shadow-color);
+    padding:26px;
+    display:flex;flex-direction:column;gap:14px;
+    transition:transform .1s ease, box-shadow .1s ease;
+  }
+  .card:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--shadow-color);}
+  .card:nth-child(2){transform:rotate(0.4deg);}
+  .card:nth-child(3){transform:rotate(-0.3deg);}
+  .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
+  .status{
+    font-family:'Space Mono',monospace;font-size:0.68rem;font-weight:700;text-transform:uppercase;
+    padding:4px 9px;border:2px solid var(--ink);
+  }
+  .status.done{background:var(--mint);}
+  .status.wip{background:var(--yellow);}
+  .card h3{font-size:1.25rem;margin:0;font-weight:800;text-transform:uppercase;}
+  .card p{font-family:'Space Mono',monospace;font-size:0.83rem;line-height:1.65;margin:0;opacity:0.85;}
+  .tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;}
+  .tag{
+    font-family:'Space Mono',monospace;font-size:0.68rem;font-weight:700;
+    padding:3px 8px;border:2px solid var(--ink);background:var(--bg);
+  }
+  .card-link{
+    font-family:'Space Mono',monospace;font-weight:700;font-size:0.82rem;
+    text-decoration:none;border-bottom:2px solid var(--ink);align-self:flex-start;
   }
 
-  .side-label {
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    writing-mode: vertical-rl;
-    font-family: var(--font-mono);
-    font-size: 17px;
-    letter-spacing: 0.35em;
-    color: var(--text-faint);
-    user-select: none;
-    z-index: 0;
+  /* trajectory / certs (soon) */
+  .soon-card{
+    border:var(--border) dashed var(--ink);
+    padding:40px 30px;
+    text-align:center;
+    background:repeating-linear-gradient(135deg, transparent, transparent 10px, rgba(21,19,15,0.03) 10px, rgba(21,19,15,0.03) 20px);
   }
-  .side-label.left { left: clamp(8px, 2vw, 22px); }
-  .side-label.right { right: clamp(8px, 2vw, 22px); transform: translateY(-50%) rotate(180deg); }
+  .soon-card.small{padding:34px 20px;}
 
-  @media (max-width: 1100px) {
-    .side-label { display: none; }
+  /* trajectory two-column layout */
+  .traj-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;}
+  .traj-col{
+    border:var(--border) solid var(--ink);
+    box-shadow:6px 6px 0 var(--shadow-color);
+    background:var(--panel);
   }
-
-  .hero-layout {
-    display: flex;
-    align-items: stretch;
-    gap: 12px;
+  .traj-col-head{
+    display:flex;align-items:center;gap:10px;
+    padding:14px 18px;
+    border-bottom:var(--border) solid var(--ink);
+    font-family:'Space Mono',monospace;
+    font-weight:700;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.02em;
   }
-
-  .hero-col {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    min-width: 0;
+  .traj-col-head.edu{background:var(--mint);}
+  .traj-col-head.exp{background:var(--yellow);}
+  .traj-ico{
+    width:26px;height:26px;
+    display:inline-flex;align-items:center;justify-content:center;
+    background:var(--panel);
+    border:2px solid var(--ink);
+    font-size:0.9rem;
   }
-
-  .hero-col-left {
-    flex: 0 0 310px;
-  }
-
-  .hero-col-right {
-    flex: 1 1 auto;
-    min-width: 0;
-  }
-
-  .hero-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    min-width: 0;
+  .traj-col .soon-card{border:none;box-shadow:none;}
+  @media (max-width:800px){.traj-grid{grid-template-columns:1fr;}}
+  .stamp{
+    display:inline-block;
+    font-family:'Space Mono',monospace;font-weight:700;text-transform:uppercase;
+    border:2.5px solid var(--pink);color:var(--pink);
+    padding:8px 20px;
+    transform:rotate(-4deg);
+    font-size:0.95rem;
+    letter-spacing:0.04em;
   }
 
-  .hero-name-card {
-    flex: 0 0 auto;
-    padding: 34px 32px 28px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 156px;
+  /* contact */
+  .contact-card{
+    background:var(--ink);
+    color:var(--bg);
+    border:var(--border) solid var(--ink);
+    box-shadow:8px 8px 0 var(--pink);
+    padding:52px 40px;
+    text-align:center;
+  }
+  html[data-theme="dark"] .contact-card{box-shadow:8px 8px 0 var(--yellow);}
+  .contact-card h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;text-transform:uppercase;margin:0 0 12px;}
+  .contact-card .avail{font-family:'Space Mono',monospace;font-size:0.8rem;text-transform:uppercase;opacity:0.75;margin-bottom:26px;}
+  .contact-main-btn{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--mint);color:#0d1a15;
+    border:2.5px solid var(--bg);
+    box-shadow:5px 5px 0 var(--pink);
+    padding:16px 26px;font-weight:800;text-decoration:none;font-size:1rem;
+    margin-bottom:28px;
+  }
+  .social-row{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;}
+  .social-row a{
+    font-family:'Space Mono',monospace;font-size:0.82rem;font-weight:700;
+    border:2px solid var(--bg);padding:8px 14px;text-decoration:none;
   }
 
-  h1.name {
-    font-family: var(--font-serif);
-    font-weight: 500;
-    font-size: clamp(4rem, 6.2vw, 5.5rem);
-    line-height: 0.88;
-    letter-spacing: -0.055em;
-    margin: 0;
-  }
+  footer{padding:26px 0 40px;text-align:center;font-family:'Space Mono',monospace;font-size:0.75rem;opacity:0.6;}
 
-  .handle {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--text-faint);
-    margin: 18px 0 0;
-  }
-
-  .hero-meta-card {
-    flex: 0 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 14px;
-    padding: 12px 20px;
-    min-height: 72px;
-  }
-
-  .hero-meta-text {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--text-muted);
-    font-weight: 500;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .status-line {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    flex: 0 0 auto;
-    padding: 7px 11px;
-    border: 1px solid var(--border-strong);
-    border-radius: 999px;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--status-live);
-  }
-
-  .dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: currentColor;
-    flex-shrink: 0;
-  }
-  .dot.pulse {
-    box-shadow: 0 0 0 0 currentColor;
-    animation: pulse 2.2s ease-out infinite;
-  }
-
-  .hero-intro-card {
-    flex: 1 1 auto;
-    padding: 28px 28px 24px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .headline {
-    font-family: var(--font-sans);
-    font-weight: 600;
-    font-size: clamp(1.45rem, 2.35vw, 1.95rem);
-    line-height: 1.14;
-    letter-spacing: -0.04em;
-    max-width: none;
-    margin: 0 0 12px;
-  }
-  .headline .accent { color: var(--accent); }
-
-  .bio {
-    max-width: 76ch;
-    color: var(--text-muted);
-    font-size: 13.5px;
-    line-height: 1.6;
-    margin: 0;
-  }
-  .bio strong { color: var(--text); font-weight: 500; }
-
-  .skill-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
-    margin-top: 18px;
-  }
-
-  .skill-tag {
-    font-family: var(--font-mono);
-    font-size: 10.5px;
-    letter-spacing: 0.04em;
-    color: var(--text-muted);
-    border: 1px solid var(--border-strong);
-    border-radius: 999px;
-    padding: 5px 9px;
-  }
-
-  .hero-links-card {
-    flex: 1 1 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 44px 1fr 1fr;
-    gap: 8px;
-    padding: 10px;
-  }
-
-  .hero-location {
-    grid-column: 1 / -1;
-    grid-row: 1;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    padding: 10px 12px;
-    border: 1px solid var(--border);
-    border-radius: 11px;
-    font-family: var(--font-mono);
-    font-size: 10.5px;
-    color: var(--text-muted);
-  }
-
-  .hero-location-left {
-    min-width: 0;
-    display: flex;
-    align-items: center;
-    gap: 7px;
-  }
-  .hero-location svg { color: var(--text-faint); flex: 0 0 auto; }
-  .locale-clock { color: var(--accent); font-variant-numeric: tabular-nums; }
-
-  .hero-link {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    min-height: 0;
-    padding: 10px 12px;
-    border: 1px solid var(--border);
-    border-radius: 11px;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text);
-    text-decoration: none;
-    transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
-  }
-  .hero-link:hover {
-    border-color: var(--border-strong);
-    background: var(--surface-hover);
-    transform: translateY(-1px);
-  }
-  .hero-link svg {
-    width: 17px;
-    height: 17px;
-    flex: 0 0 auto;
-    color: var(--text-faint);
-  }
-  .hero-link:hover svg { color: var(--accent); }
-
-  .hero-link--soon {
-    opacity: 0.4;
-    cursor: default;
-    pointer-events: none;
-    font-style: italic;
-  }
-
-  @media (max-width: 859px) {
-    .hero-layout {
-      flex-direction: column;
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;}
+    .project-grid{grid-template-columns:1fr;}
+    nav{
+      position:static;transform:none;
+      order:3;flex-basis:100%;
+      justify-content:center;
+      gap:16px;
+      padding-top:12px;
+      margin-top:10px;
+      border-top:2px solid var(--ink);
     }
-    .hero-col-left,
-    .hero-col-right {
-      flex: 1 1 auto;
-    }
-    .hero-name-card {
-      min-height: 220px;
-    }
-    .hero-intro-card {
-      min-height: 220px;
-    }
   }
-
-  @media (max-width: 560px) {
-    .hero-layout {
-      gap: 10px;
-    }
-    .hero-col {
-      gap: 10px;
-    }
-    .hero-name-card { min-height: 210px; }
-    .hero-meta-card { min-height: 64px; }
-    .hero-intro-card { min-height: 0; padding: 24px 22px; }
-    .hero-links-card { grid-template-rows: 42px 1fr 1fr; }
-    .hero-meta-text { white-space: normal; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .dot.pulse { animation: none; }
-  }
-
-  /* ---------- section label ---------- */
-  .section {
-    position: relative;
-    padding: 64px 0;
-    border-top: 1px solid var(--border);
-  }
-
-  .section-head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 16px;
-    margin-bottom: 28px;
-  }
-
-  .eyebrow {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    color: var(--text-faint);
-    margin: 0;
-    user-select: none;
-  }
-  .eyebrow::before { content: "// "; color: var(--border-strong); }
-
-  .section-title {
-    font-family: var(--font-serif);
-    font-size: clamp(1.6rem, 3vw, 2.1rem);
-    font-weight: 600;
-    margin: 6px 0 0;
-  }
-
-  .see-all {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    color: var(--accent);
-    text-decoration: none;
-    white-space: nowrap;
-  }
-
-  /* ---------- project cards ---------- */
-  .projects {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 16px;
-  }
-  .projects .card.featured { grid-column: span 2; }
-  @media (max-width: 700px) {
-    .projects .card.featured { grid-column: span 1; }
-  }
-
-  .card {
-    display: flex;
-    flex-direction: column;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 24px;
-    text-decoration: none;
-    color: inherit;
-    transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
-  }
-
-  .card:hover {
-    border-color: var(--border-strong);
-    background: var(--surface-hover);
-    transform: translateY(-2px);
-  }
-
-  .card.featured {
-    border-color: rgba(52, 211, 153, 0.35);
-    box-shadow: var(--shadow-glow);
-  }
-  .card.featured:hover { border-color: var(--accent-strong); }
-
-  .card-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    font-family: var(--font-mono);
-    font-size: 12px;
-    margin-bottom: 14px;
-  }
-  .card-status.live { color: var(--status-live); }
-  .card-status.wip { color: var(--status-wip); }
-  .card-status.done { color: var(--status-idle); }
-
-  .card-title {
-    font-family: var(--font-mono);
-    font-weight: 600;
-    font-size: 16px;
-    margin: 0 0 8px;
-    color: var(--text);
-  }
-
-  .card-desc {
-    font-size: 14px;
-    color: var(--text-muted);
-    margin: 0 0 18px;
-    flex-grow: 1;
-  }
-
-  .card-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 16px;
-  }
-
-  .tag {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--text-muted);
-    border: 1px solid var(--border-strong);
-    border-radius: 4px;
-    padding: 3px 7px;
-  }
-
-  .card-open {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    color: var(--accent);
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-  }
-  .card-open .arrow { transition: transform 0.15s ease; }
-  .card:hover .card-open .arrow { transform: translateX(3px); }
-
-  /* ---------- trajectory ---------- */
-  .trajectory {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  @media (min-width: 780px) {
-    .trajectory { grid-template-columns: 1fr 1fr; }
-  }
-
-  .traj-panel {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 24px;
-  }
-
-  .traj-panel-title {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-faint);
-    margin: 0 0 20px;
-  }
-
-  .traj-entry {
-    display: flex;
-    gap: 14px;
-    padding: 18px 0;
-    border-top: 1px solid var(--border);
-  }
-  .traj-entry:first-of-type { border-top: none; padding-top: 0; }
-
-  .traj-entry--soon { opacity: 0.45; }
-  .traj-logo--soon {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    color: var(--text-faint);
-  }
-  .traj-soon-label { font-style: italic; }
-
-  .traj-logo {
-    width: 38px;
-    height: 38px;
-    border-radius: 8px;
-    background: var(--accent-dim);
-    color: var(--accent);
-    border: 1px solid var(--border-strong);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-mono);
-    font-weight: 600;
-    font-size: 12px;
-    flex-shrink: 0;
-  }
-
-  .traj-body { flex: 1; min-width: 0; }
-
-  .traj-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-
-  .traj-org {
-    font-family: var(--font-mono);
-    font-weight: 600;
-    font-size: 14.5px;
-    margin: 0;
-  }
-
-  .traj-period {
-    font-family: var(--font-mono);
-    font-size: 11.5px;
-    color: var(--text-faint);
-    white-space: nowrap;
-  }
-
-  .traj-role {
-    font-size: 13px;
-    color: var(--text-muted);
-    margin: 2px 0 10px;
-  }
-
-  /* ---------- certifications ---------- */
-  .certs {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 14px;
-  }
-
-  .cert-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 18px;
-  }
-
-  .cert-issuer {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 14px;
-  }
-
-  .cert-badge {
-    width: 30px;
-    height: 30px;
-    border-radius: 7px;
-    background: var(--accent-dim);
-    color: var(--accent);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-mono);
-    font-weight: 700;
-    font-size: 11px;
-    flex-shrink: 0;
-  }
-
-  .cert-name {
-    font-family: var(--font-mono);
-    font-weight: 600;
-    font-size: 13.5px;
-    margin: 0 0 3px;
-  }
-
-  .cert-meta {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--text-faint);
-    margin: 0;
-  }
-
-  .cert-card--soon { opacity: 0.45; }
-  .cert-badge--soon {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    color: var(--text-faint);
-  }
-  .cert-soon-label { font-style: italic; }
-
-  .cert-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--status-live);
-    margin-top: 12px;
-  }
-
-  /* ---------- footer CTA ---------- */
-  .cta-section { border-top: 1px solid var(--border); padding: 72px 0 40px; }
-
-  .cta-panel {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: clamp(28px, 5vw, 48px);
-  }
-
-  .cta-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 16px;
-    flex-wrap: wrap;
-    margin-bottom: 28px;
-  }
-
-  .cta-title {
-    font-family: var(--font-serif);
-    font-size: clamp(1.7rem, 4vw, 2.5rem);
-    font-weight: 600;
-    margin: 0;
-    max-width: 14ch;
-  }
-
-  .cta-available {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--text-faint);
-    white-space: nowrap;
-    padding-top: 8px;
-  }
-
-  .cta-email-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    flex-wrap: wrap;
-    border: 1px solid var(--border-strong);
-    border-radius: 10px;
-    padding: 18px 20px;
-    text-decoration: none;
-    color: var(--text);
-    transition: border-color 0.15s ease, background 0.15s ease;
-    margin-bottom: 20px;
-  }
-  .cta-email-row:hover { border-color: var(--accent); background: var(--accent-dim); }
-
-  .cta-email {
-    font-family: var(--font-mono);
-    font-size: clamp(1rem, 2.4vw, 1.3rem);
-    font-weight: 600;
-  }
-
-  .cta-email-sub { font-size: 13px; color: var(--text-muted); }
-
-  .cta-links {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 12px;
-  }
-
-  .cta-link-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    text-decoration: none;
-    color: var(--text);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 16px;
-    font-family: var(--font-mono);
-    font-size: 13px;
-    transition: border-color 0.15s ease, background 0.15s ease;
-  }
-  .cta-link-card:hover { border-color: var(--accent); background: var(--accent-dim); }
-  .cta-link-card .cta-link-sub { display: block; font-size: 11px; color: var(--text-faint); margin-top: 2px; }
-
-  /* ---------- footer ---------- */
-  footer.site-footer {
-    padding: 28px 0 56px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--text-faint);
-  }
-  footer.site-footer a { color: var(--text-faint); text-decoration: none; }
-  footer.site-footer a:hover { color: var(--accent); }
-
-  @media (prefers-reduced-motion: reduce) {
-    .dot.pulse { animation: none; }
-    .card, .hero-link, .cta-link-card, .cta-email-row, .card-open .arrow { transition: none; }
-    body::after { animation: none; }
-    html { scroll-behavior: auto; }
+  @media (max-width:600px){
+    header{margin:10px 10px 0 10px;top:10px;box-shadow:4px 4px 0 var(--shadow-color);}
+    .header-inner{padding:12px 16px;}
+    .brand-mark{width:38px;height:38px;}
+    .brand-text .name{font-size:0.95rem;}
+    .icon-btn{width:34px;height:34px;font-size:0.9rem;}
+    .header-actions{gap:8px;}
+    .header-actions .btn{padding:10px 14px;font-size:0.85rem;}
+    .contact-card{padding:36px 22px;}
+    .marquee-item{padding:0 20px;font-size:1rem;}
+    .term-frame{margin:0 6px;}
   }
 </style>
 </head>
 <body>
+<div class="page-frame">
+  <span class="corner corner-tl"></span>
+  <span class="corner corner-tr"></span>
+  <span class="corner corner-bl"></span>
+  <span class="corner corner-br"></span>
 
-<span class="side-label left" data-i18n="side1">BACKEND</span>
-<span class="side-label right" data-i18n="side2">ENGINEER</span>
-
-<div class="wrap" id="top">
-
-  <div class="nav-outer">
-    <nav class="nav-pill">
-      <div class="nav-links">
-        <a href="#projects" data-i18n="navProjects">Projetos</a>
-        <a href="#trajectory" data-i18n="navTrajectory">Trajetória</a>
-        <a href="#certs" data-i18n="navCerts">Certificações</a>
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-mark mono">RL</div>
+      <div class="brand-text">
+        <div class="name" data-i18n="brand_name">Raí Levi</div>
+        <div class="handle">@rlevidev</div>
       </div>
-      <div class="nav-right">
-        <button class="icon-btn" id="themeToggle" type="button" aria-label="Alternar tema" title="Alternar tema">☀</button>
-        <button class="icon-btn" id="langToggle" type="button" aria-label="Alternar idioma" title="Alternar idioma">🇺🇸</button>
-      </div>
+    </div>
+    <nav>
+      <a href="#projects" data-i18n="nav_projects">Projetos</a>
+      <a href="#trajectory" data-i18n="nav_trajectory">Trajetória</a>
+      <a href="#certs" data-i18n="nav_certs">Certificações</a>
     </nav>
+    <div class="header-actions">
+      <button class="icon-btn" id="theme-toggle" aria-label="Alternar tema" title="Tema">☀</button>
+      <button class="icon-btn mono" id="lang-toggle" aria-label="Switch language" title="Language">PT</button>
+      <a class="header-cta" href="#contact" data-i18n="nav_cta">Falar comigo ↗</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap hero">
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow"><span class="dot"></span><span data-i18n="hero_eyebrow">disponível para projetos</span></div>
+
+      <h1 class="display">
+        <span data-i18n="hero_line1">BACKEND</span><br>
+        <span data-i18n="hero_line2">ENGINEER</span><br>
+        <span class="display-highlight" data-i18n="hero_highlight">JAVA &amp; GO</span><br>
+        <span data-i18n="hero_line3">SEM ATALHO.</span>
+      </h1>
+
+      <div class="byline mono" data-i18n="hero_byline">criado por <a href="https://www.linkedin.com/in/rlevidev/" target="_blank" rel="noopener">Raí Levi</a> · Fortaleza, BR</div>
+
+      <p class="lede" data-i18n="hero_lede">Construo serviços e APIs de backend, principalmente em Java e Go. Gosto das partes que a maioria pula — deploy e observabilidade, o que mantém um sistema vivo depois da demo. Ultimamente venho combinando isso com fluxos assistidos por IA para ir mais rápido sem cortar caminho.</p>
+
+      <div class="cta-row">
+        <a class="btn btn-pink" href="https://github.com/rlevidev" target="_blank" rel="noopener" data-i18n="cta_projects">GitHub</a>
+        <a class="btn" href="#" data-i18n="cta_cv">Baixar CV</a>
+        <a class="btn" href="https://linkedin.com/in/rlevidev" target="_blank" rel="noopener" data-i18n="cta_contact">LinkedIn</a>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat y"><b>Java</b><span data-i18n="stat_go">stack principal</span></div>
+        <div class="stat m"><b>Go</b><span data-i18n="stat_java">apis rest</span></div>
+        <div class="stat p"><b>GMT-3</b><span data-i18n="stat_loc">fortaleza, br</span></div>
+      </div>
+    </div>
+
+    <div class="term-wrap">
+      <div class="term-badge">rlevidev</div>
+      <div class="term-frame">
+        <div class="tape"></div>
+        <div class="terminal">
+          <div class="term-dots"><span class="r"></span><span class="a"></span><span class="g"></span></div>
+          <div class="term-line"><span class="p">$</span> whoami</div>
+          <div class="term-line">rai_levi — backend engineer</div>
+          <div class="term-line">&nbsp;</div>
+          <div class="term-line"><span class="p">$</span> stack --list</div>
+          <div class="term-line">java · go · docker · postgres</div>
+          <div class="term-line">&nbsp;</div>
+          <div class="term-line"><span class="p">$</span> status</div>
+          <div class="term-line">online <span class="c">// GMT-3, Fortaleza</span><span class="cursor"></span></div>
+        </div>
+        <div class="note"></div>
+        <div class="pin"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <div class="marquee-set">
+      <span class="marquee-item"><img class="m-ico m-ico-img" src="https://cdn.simpleicons.org/go/00ADD8" alt="" width="28" height="28">Go</span>
+      <span class="marquee-item"><img class="m-ico m-ico-img" src="https://cdn.simpleicons.org/openjdk/ED8B00" alt="" width="28" height="28">Java</span>
+      <span class="marquee-item"><img class="m-ico m-ico-img" src="https://cdn.simpleicons.org/docker/2496ED" alt="" width="28" height="28">Docker</span>
+      <span class="marquee-item"><img class="m-ico m-ico-img" src="https://cdn.simpleicons.org/postgresql/4169E1" alt="" width="28" height="28">PostgreSQL</span>
+      <span class="marquee-item"><span class="m-ico m-ico-claude"><svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M12.00,12.00 L12.99,11.81 L21.50,12.00 L12.99,12.19 Z M12.00,12.00 L12.61,12.41 L16.24,16.24 L12.41,12.61 Z M12.00,12.00 L12.21,13.08 L12.00,22.50 L11.79,13.08 Z M12.00,12.00 L11.59,12.61 L7.40,16.60 L11.39,12.41 Z M12.00,12.00 L11.10,12.18 L3.00,12.00 L11.10,11.82 Z M12.00,12.00 L11.39,11.59 L7.76,7.76 L11.59,11.39 Z M12.00,12.00 L11.81,11.01 L12.00,2.00 L12.19,11.01 Z M12.00,12.00 L12.41,11.39 L16.60,7.40 L12.61,11.59 Z"/></svg></span>Claude Code</span>
+      <span class="marquee-item"><img class="m-ico m-ico-img" src="https://cdn.simpleicons.org/git/F05032" alt="" width="28" height="28">Git</span>
+      <span class="marquee-item"><img class="m-ico m-ico-img" src="https://cdn.simpleicons.org/linux/FCC624" alt="" width="28" height="28">Linux</span>
+    </div>
+    <div class="marquee-set">
+      <span class="marquee-item"><img class="m-ico m-ico-img" src="https://cdn.simpleicons.org/go/00ADD8" alt="" width="28" height="28">Go</span>
+      <span class="marquee-item"><img class="m-ico m-ico-img" src="https://cdn.simpleicons.org/openjdk/ED8B00" alt="" width="28" height="28">Java</span>
+      <span class="marquee-item"><img class="m-ico m-ico-img" src="https://cdn.simpleicons.org/docker/2496ED" alt="" width="28" height="28">Docker</span>
+      <span class="marquee-item"><img class="m-ico m-ico-img" src="https://cdn.simpleicons.org/postgresql/4169E1" alt="" width="28" height="28">PostgreSQL</span>
+      <span class="marquee-item"><span class="m-ico m-ico-claude"><svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M12.00,12.00 L12.99,11.81 L21.50,12.00 L12.99,12.19 Z M12.00,12.00 L12.61,12.41 L16.24,16.24 L12.41,12.61 Z M12.00,12.00 L12.21,13.08 L12.00,22.50 L11.79,13.08 Z M12.00,12.00 L11.59,12.61 L7.40,16.60 L11.39,12.41 Z M12.00,12.00 L11.10,12.18 L3.00,12.00 L11.10,11.82 Z M12.00,12.00 L11.39,11.59 L7.76,7.76 L11.59,11.39 Z M12.00,12.00 L11.81,11.01 L12.00,2.00 L12.19,11.01 Z M12.00,12.00 L12.41,11.39 L16.60,7.40 L12.61,11.59 Z"/></svg></span>Claude Code</span>
+      <span class="marquee-item"><img class="m-ico m-ico-img" src="https://cdn.simpleicons.org/git/F05032" alt="" width="28" height="28">Git</span>
+      <span class="marquee-item"><img class="m-ico m-ico-img" src="https://cdn.simpleicons.org/linux/FCC624" alt="" width="28" height="28">Linux</span>
+    </div>
+  </div>
+</div>
+
+<section id="projects" class="wrap">
+  <div class="sec-head">
+    <div>
+      <div class="sec-eyebrow" data-i18n="proj_eyebrow">projetos</div>
+      <h2 class="sec-title" data-i18n="proj_title">Projetos Destaque</h2>
+    </div>
+    <a class="sec-link" href="https://github.com/rlevidev" target="_blank" rel="noopener" data-i18n="proj_all">Ver todos ↗</a>
   </div>
 
-  <header class="hero">
-    <div class="hero-layout">
-
-      <div class="hero-col hero-col-left">
-        <div class="hero-card hero-name-card">
-          <div>
-            <h1 class="name">Raí<br>Levi</h1>
-            <p class="handle">— @rlevidev</p>
-          </div>
-        </div>
-
-        <div class="hero-card hero-links-card">
-          <div class="hero-location">
-            <div class="hero-location-left">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-              <span data-i18n="locale">Fortaleza, BR · GMT-3</span>
-            </div>
-            <span class="locale-clock" id="liveClock">--:--:--</span>
-          </div>
-          <a class="hero-link" href="#" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-            <span>CV</span>
-          </a>
-          <a class="hero-link" href="https://www.linkedin.com/in/rlevidev/" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
-            <span>LinkedIn</span>
-          </a>
-          <a class="hero-link" href="https://github.com/rlevidev" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.562 21.8 24 17.302 24 12 24 5.373 18.627 0 12 0z"></path></svg>
-            <span>GitHub</span>
-          </a>
-          <div class="hero-link hero-link--soon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-            <span>Em breve...</span>
-          </div>
-        </div>
+  <div class="project-grid">
+    <div class="card">
+      <div class="card-top">
+        <h3>Rinha de Backend 2026</h3>
+        <span class="status done" data-i18n="status_done">concluído</span>
       </div>
-
-      <div class="hero-col hero-col-right">
-        <div class="hero-card hero-meta-card">
-          <div class="hero-meta-text" data-i18n="heroMetaText">Backend Engineer &nbsp;/&nbsp; Go & Java &nbsp;/&nbsp; Fortaleza, BR</div>
-          <span class="status-line">
-            <span class="dot pulse"></span>
-            <span data-i18n="status">disponível</span>
-          </span>
-        </div>
-
-        <div class="hero-card hero-intro-card">
-          <h2 class="headline" data-i18n="headline">Engenheiro Backend. Construindo <span class="accent">APIs resilientes</span>.</h2>
-          <p class="bio" data-i18n="bio">
-            Construo serviços e APIs de backend, principalmente em <strong>Go</strong> e <strong>Java</strong>.
-            Gosto das partes que a maioria pula — deploy e observabilidade, o que mantém
-            um sistema vivo depois da demo. Ultimamente venho combinando isso com
-            fluxos assistidos por IA para ir mais rápido sem cortar caminho.
-          </p>
-        </div>
+      <p data-i18n="proj1_desc">API de detecção de fraude construída para a Rinha de Backend, uma competição brasileira de backend. Compara transações de cartão contra 100 mil registros de referência usando busca por similaridade vetorial, sob limites rígidos de CPU e memória.</p>
+      <div class="tag-row">
+        <span class="tag">Go</span><span class="tag">Vector Search</span><span class="tag">Performance</span>
       </div>
-
-    </div>
-  </header>
-
-  <section class="section" id="projects">
-    <div class="section-head">
-      <div>
-        <p class="eyebrow" data-i18n="eyebrowProjects">projects</p>
-        <h2 class="section-title" data-i18n="titleProjects">Projetos Destaque</h2>
-      </div>
-      <a class="see-all" href="https://github.com/rlevidev" target="_blank" rel="noopener" data-i18n="seeAllProjects">Ver todos ↗</a>
+      <a class="card-link" href="https://rlevidev.github.io/rinha-2026" target="_blank" rel="noopener" data-i18n="link_code">ver código →</a>
     </div>
 
-    <div class="projects">
-
-      <a class="card featured" href="https://rlevidev.github.io/rinha-2026" target="_blank" rel="noopener">
-        <span class="card-status done">
-          <span class="dot"></span> <span data-i18n="statusDone">concluído</span>
-        </span>
-        <h3 class="card-title">Rinha de Backend 2026</h3>
-        <p class="card-desc" data-i18n="descRinha">
-          API de detecção de fraude construída para a Rinha de Backend, uma competição
-          brasileira de backend. Compara transações de cartão contra 100 mil registros de
-          referência usando busca por similaridade vetorial, sob limites rígidos de CPU e memória.
-        </p>
-        <div class="card-tags">
-          <span class="tag">Go</span>
-          <span class="tag">Vector Search</span>
-          <span class="tag">Performance</span>
-        </div>
-        <span class="card-open"><span data-i18n="viewCode">ver código</span> <span class="arrow">→</span></span>
-      </a>
-
-      <a class="card" href="https://rlevidev.github.io/curriculo-builder" target="_blank" rel="noopener">
-        <span class="card-status wip">
-          <span class="dot"></span> <span data-i18n="statusWip">em desenvolvimento</span>
-        </span>
-        <h3 class="card-title">Currículo Builder</h3>
-        <p class="card-desc" data-i18n="descCurriculo">
-          Gerador de currículo ATS-friendly. Preenche um template LaTeX a partir de
-          dados estruturados e compila para PDF. Backend em Go, frontend estático.
-        </p>
-        <div class="card-tags">
-          <span class="tag">Go</span>
-          <span class="tag">LaTeX</span>
-          <span class="tag">Docker</span>
-          <span class="tag">Render</span>
-        </div>
-<span class="card-open"><span data-i18n="openProject">abrir projeto</span> <span class="arrow">→</span></span>
-      </a>
-
-      <a class="card" href="https://github.com/rlevidev/estoque-api" target="_blank" rel="noopener">
-        <span class="card-status done">
-          <span class="dot"></span> <span data-i18n="statusDone">concluído</span>
-        </span>
-        <h3 class="card-title">estoque-api</h3>
-        <p class="card-desc" data-i18n="descEstoque">
-          API REST para gestão de estoque e inventário.
-        </p>
-        <div class="card-tags">
-          <span class="tag">Java</span>
-        </div>
-        <span class="card-open"><span data-i18n="viewCode">ver código</span> <span class="arrow">→</span></span>
-      </a>
-
-      <a class="card" href="https://github.com/rlevidev/encurtador-url" target="_blank" rel="noopener">
-        <span class="card-status done">
-          <span class="dot"></span> <span data-i18n="statusDone">concluído</span>
-        </span>
-        <h3 class="card-title">encurtador-url</h3>
-        <p class="card-desc" data-i18n="descEncurtador">
-          Serviço encurtador de URLs, aceito como solução da comunidade no repositório
-          de desafios técnicos do Backend Brasil.
-        </p>
-        <div class="card-tags">
-          <span class="tag">Java</span>
-        </div>
-        <span class="card-open"><span data-i18n="viewCode">ver código</span> <span class="arrow">→</span></span>
-      </a>
-
-    </div>
-  </section>
-
-  <section class="section" id="trajectory">
-    <div class="section-head">
-      <div>
-        <p class="eyebrow" data-i18n="eyebrowTrajectory">trajectory</p>
-        <h2 class="section-title" data-i18n="titleTrajectory">Trajetória</h2>
+    <div class="card">
+      <div class="card-top">
+        <h3>Currículo Builder</h3>
+        <span class="status wip" data-i18n="status_wip">em desenvolvimento</span>
       </div>
+      <p data-i18n="proj2_desc">Gerador de currículo ATS-friendly. Preenche um template LaTeX a partir de dados estruturados e compila para PDF. Backend em Go, frontend estático.</p>
+      <div class="tag-row">
+        <span class="tag">Go</span><span class="tag">LaTeX</span><span class="tag">Docker</span><span class="tag">Render</span>
+      </div>
+      <a class="card-link" href="https://rlevidev.github.io/curriculo-builder" target="_blank" rel="noopener" data-i18n="link_open">abrir projeto →</a>
     </div>
 
-    <!-- ⚠️ Conteúdo placeholder — substitua pelos seus dados reais de formação e experiência. -->
-    <div class="trajectory">
-
-      <div class="traj-panel">
-        <p class="traj-panel-title" data-i18n="eduTitle">Educação</p>
-
-        <div class="traj-entry traj-entry--soon">
-          <div class="traj-logo traj-logo--soon">···</div>
-          <div class="traj-body">
-            <div class="traj-top">
-              <p class="traj-org traj-soon-label">Em breve...</p>
-              <span class="traj-period">... — ...</span>
-            </div>
-            <p class="traj-role">Bacharelado em Engenharia de Software</p>
-          </div>
-        </div>
+    <div class="card">
+      <div class="card-top">
+        <h3>estoque-api</h3>
+        <span class="status done" data-i18n="status_done">concluído</span>
       </div>
-
-      <div class="traj-panel">
-        <p class="traj-panel-title" data-i18n="workTitle">Trabalho</p>
-
-        <div class="traj-entry traj-entry--soon">
-          <div class="traj-logo traj-logo--soon">···</div>
-          <div class="traj-body">
-            <div class="traj-top">
-              <p class="traj-org traj-soon-label">Em breve...</p>
-              <span class="traj-period">... — ...</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <section class="section" id="certs">
-    <div class="section-head">
-      <div>
-        <p class="eyebrow" data-i18n="eyebrowCerts">certifications</p>
-        <h2 class="section-title" data-i18n="titleCerts">Certificações</h2>
-      </div>
+      <p data-i18n="proj3_desc">API REST para gestão de estoque e inventário.</p>
+      <div class="tag-row"><span class="tag">Java</span></div>
+      <a class="card-link" href="https://github.com/rlevidev/estoque-api" target="_blank" rel="noopener" data-i18n="link_code">ver código →</a>
     </div>
 
-    <!-- ⚠️ Conteúdo placeholder — substitua pelas suas certificações reais. -->
-    <div class="certs">
-
-      <div class="cert-card cert-card--soon">
-        <div class="cert-issuer">
-          <div class="cert-badge cert-badge--soon">···</div>
-          <div>
-            <p class="cert-name cert-soon-label">Em breve...</p>
-          </div>
-        </div>
+    <div class="card">
+      <div class="card-top">
+        <h3>encurtador-url</h3>
+        <span class="status done" data-i18n="status_done">concluído</span>
       </div>
-
+      <p data-i18n="proj4_desc">Serviço encurtador de URLs, aceito como solução da comunidade no repositório de desafios técnicos do Backend Brasil.</p>
+      <div class="tag-row"><span class="tag">Java</span></div>
+      <a class="card-link" href="https://github.com/rlevidev/encurtador-url" target="_blank" rel="noopener" data-i18n="link_code">ver código →</a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="cta-section">
-    <div class="cta-panel">
-      <div class="cta-top">
-        <h2 class="cta-title" data-i18n="ctaTitle">Vamos construir algo juntos?</h2>
-        <span class="cta-available" data-i18n="ctaAvailable">Aberto a projetos e freelas</span>
+<section id="trajectory" class="wrap">
+  <div class="sec-head">
+    <div>
+      <div class="sec-eyebrow" data-i18n="traj_eyebrow">trajetória</div>
+      <h2 class="sec-title" data-i18n="traj_title">Trajetória</h2>
+    </div>
+  </div>
+  <div class="traj-grid">
+    <div class="traj-col">
+      <div class="traj-col-head edu">
+        <span class="traj-ico">🎓</span>
+        <span data-i18n="traj_edu_head">formação acadêmica</span>
       </div>
-
-      <a class="cta-email-row" href="mailto:rlevi.dev@gmail.com">
-        <span>
-          <span class="cta-email">rlevi.dev@gmail.com</span><br>
-          <span class="cta-email-sub" data-i18n="ctaEmailSub">Backend, deploy e monitoramento — sem enrolação.</span>
-        </span>
-        <span class="card-open"><span class="arrow">→</span></span>
-      </a>
-
-      <div class="cta-links">
-        <a class="cta-link-card" href="https://www.linkedin.com/in/rlevidev/" target="_blank" rel="noopener">
-          LinkedIn <span class="cta-link-sub">@rlevidev</span>
-        </a>
-        <a class="cta-link-card" href="https://github.com/rlevidev" target="_blank" rel="noopener">
-          GitHub <span class="cta-link-sub">@rlevidev</span>
-        </a>
-        <a class="cta-link-card" href="mailto:rlevi.dev@gmail.com">
-          <span data-i18n="ctaEmailLink">Email</span> <span class="cta-link-sub">rlevi.dev@gmail.com</span>
-        </a>
+      <div class="soon-card small">
+        <span class="stamp" data-i18n="soon">em breve</span>
       </div>
     </div>
-  </section>
+    <div class="traj-col">
+      <div class="traj-col-head exp">
+        <span class="traj-ico">💼</span>
+        <span data-i18n="traj_exp_head">experiência profissional</span>
+      </div>
+      <div class="soon-card small">
+        <span class="stamp" data-i18n="soon">em breve</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <footer class="site-footer">
-    <span>© 2026 Raí Levi</span>
-    <a href="mailto:rlevi.dev@gmail.com">rlevi.dev@gmail.com</a>
-  </footer>
+<section id="certs" class="wrap">
+  <div class="sec-head">
+    <div>
+      <div class="sec-eyebrow" data-i18n="certs_eyebrow">certificações</div>
+      <h2 class="sec-title" data-i18n="certs_title">Certificações</h2>
+    </div>
+  </div>
+  <div class="soon-card">
+    <span class="stamp" data-i18n="soon">em breve</span>
+  </div>
+</section>
 
+<section id="contact" class="wrap">
+  <div class="contact-card">
+    <div class="avail" data-i18n="contact_avail">aberto a projetos e freelas</div>
+    <h2 data-i18n="contact_title">Vamos construir algo juntos?</h2>
+    <a class="contact-main-btn" href="mailto:rlevi.dev@gmail.com">
+      <span data-i18n="contact_cta">Backend, deploy e monitoramento — sem enrolação.</span> →
+    </a>
+    <div class="social-row">
+      <a href="https://www.linkedin.com/in/rlevidev/" target="_blank" rel="noopener">LinkedIn @rlevidev</a>
+      <a href="https://github.com/rlevidev" target="_blank" rel="noopener">GitHub @rlevidev</a>
+      <a href="mailto:rlevi.dev@gmail.com">rlevi.dev@gmail.com</a>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Raí Levi &lt;rlevi.dev@gmail.com&gt;</footer>
 </div>
 
 <script>
-  // ---------- theme toggle ----------
-  const themeBtn = document.getElementById('themeToggle');
+  // theme toggle
+  const themeBtn = document.getElementById('theme-toggle');
   const root = document.documentElement;
   themeBtn.addEventListener('click', () => {
     const isDark = root.getAttribute('data-theme') === 'dark';
     root.setAttribute('data-theme', isDark ? 'light' : 'dark');
-    themeBtn.textContent = isDark ? '☾' : '☀';
+    themeBtn.textContent = isDark ? '☀' : '☾';
   });
 
-  // ---------- live clock (São Paulo) ----------
-  function updateClock() {
-    const el = document.getElementById('liveClock');
-    const now = new Date();
-    const formatted = new Intl.DateTimeFormat('pt-BR', {
-      timeZone: 'America/Fortaleza',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: false
-    }).format(now);
-    el.textContent = formatted;
-  }
-  updateClock();
-  setInterval(updateClock, 1000);
-
-  // ---------- i18n ----------
+  // lang toggle (lightweight dictionary swap)
   const dict = {
-    pt: {
-      navProjects: 'Projetos', navTrajectory: 'Trajetória', navCerts: 'Certificações', navContact: 'Contato',
-      side1: 'BACKEND', side2: 'ENGINEER',
-      locale: 'Fortaleza, BR · GMT-3',
-      heroMetaText: 'Engenheiro Backend &nbsp;/&nbsp; Go & Java &nbsp;/&nbsp; Fortaleza, BR',
-      heroEmail: 'Email ↗', heroProjects: 'Ver projetos ↗',
-      status: 'disponível',
-      headline: 'Engenheiro Backend. Construindo <span class="accent">APIs resilientes</span>.',
-      bio: 'Construo serviços e APIs de backend, principalmente em <strong>Go</strong> e <strong>Java</strong>. Gosto das partes que a maioria pula — deploy e observabilidade, o que mantém um sistema vivo depois da demo. Ultimamente venho combinando isso com fluxos assistidos por IA para ir mais rápido sem cortar caminho.',
-      eyebrowProjects: 'projects', titleProjects: 'Projetos Destaque', seeAllProjects: 'Ver todos ↗',
-      statusDone: 'concluído', statusWip: 'em desenvolvimento', viewCode: 'ver código', openProject: 'abrir projeto',
-      descRinha: 'API de detecção de fraude construída para a Rinha de Backend, uma competição brasileira de backend. Compara transações de cartão contra 100 mil registros de referência usando busca por similaridade vetorial, sob limites rígidos de CPU e memória.',
-      descCurriculo: 'Gerador de currículo ATS-friendly. Preenche um template LaTeX a partir de dados estruturados e compila para PDF. Backend em Go, frontend estático.',
-      descEstoque: 'API REST para gestão de estoque e inventário.',
-      descEncurtador: 'Serviço encurtador de URLs, aceito como solução da comunidade no repositório de desafios técnicos do Backend Brasil.',
-      eyebrowTrajectory: 'trajectory', titleTrajectory: 'Trajetória',
-      eduTitle: 'Educação', workTitle: 'Trabalho',
-      edu1org: 'Universidade Federal — Ceará', edu1role: 'Bacharelado em Ciência da Computação',
-      edu2org: 'Escola Técnica Estadual', edu2role: 'Técnico em Informática',
-      work1org: 'Empresa Atual', work1period: 'jan 2025 — atual', work1role: 'Engenheiro Backend',
-      work2org: 'Empresa Anterior', work2role: 'Desenvolvedor Java',
-      eyebrowCerts: 'certifications', titleCerts: 'Certificações',
-      cert1meta: 'Fundamentos', cert3meta: 'Desenvolvimento Backend', active: 'Ativo',
-      ctaTitle: 'Vamos construir algo juntos?', ctaAvailable: 'Aberto a projetos e freelas',
-      ctaEmailSub: 'Backend, deploy e monitoramento — sem enrolação.', ctaEmailLink: 'Email'
-    },
     en: {
-      navProjects: 'Projects', navTrajectory: 'Trajectory', navCerts: 'Certifications', navContact: 'Contact',
-      side1: 'BACKEND', side2: 'ENGINEER',
-      locale: 'Fortaleza, BR · GMT-3',
-      heroMetaText: 'Backend Engineer &nbsp;/&nbsp; Go & Java &nbsp;/&nbsp; Fortaleza, BR',
-      heroEmail: 'Email ↗', heroProjects: 'View projects ↗',
-      status: 'available',
-      headline: 'Backend Engineer. Building <span class="accent">resilient APIs</span>.',
-      bio: 'I build backend services and APIs, mostly in <strong>Go</strong> and <strong>Java</strong>. I care about the parts most people skip — deployment and monitoring, the stuff that keeps a system alive after the demo. Lately I\'ve been pairing that with AI-assisted workflows to move faster without cutting corners.',
-      eyebrowProjects: 'projects', titleProjects: 'Featured Projects', seeAllProjects: 'View all ↗',
-      statusDone: 'completed', statusWip: 'in development', viewCode: 'view code', openProject: 'open project',
-      descRinha: 'Fraud-detection API built for Rinha de Backend, a Brazilian backend competition. Scores card transactions against 100k reference records using vector similarity search, under strict CPU and memory limits.',
-      descCurriculo: 'ATS-friendly resume generator. Fills a LaTeX template from structured input and compiles it to PDF. Go backend, static frontend.',
-      descEstoque: 'REST API for inventory and stock management.',
-      descEncurtador: 'URL shortener service, accepted as a community solution to Backend Brasil\'s technical challenge repository.',
-      eyebrowTrajectory: 'trajectory', titleTrajectory: 'Trajectory',
-      eduTitle: 'Education', workTitle: 'Work',
-      edu1org: 'Federal University — Ceará', edu1role: 'B.Sc. in Computer Science',
-      edu2org: 'State Technical School', edu2role: 'Information Technology, Technical Degree',
-      work1org: 'Current Company', work1period: 'Jan 2025 — present', work1role: 'Backend Engineer',
-      work2org: 'Previous Company', work2role: 'Java Developer',
-      eyebrowCerts: 'certifications', titleCerts: 'Certifications',
-      cert1meta: 'Fundamentals', cert3meta: 'Backend Development', active: 'Active',
-      ctaTitle: 'Let\'s build something together?', ctaAvailable: 'Open to projects and freelance',
-      ctaEmailSub: 'Backend, deploy and monitoring — no fluff.', ctaEmailLink: 'Email'
+      nav_projects:"Projects", nav_trajectory:"Trajectory", nav_certs:"Certifications", nav_cta:"Get in touch ↗",
+      hero_eyebrow:"available for projects",
+      hero_line1:"BACKEND", hero_line2:"ENGINEER", hero_highlight:"JAVA &amp; GO", hero_line3:"NO SHORTCUTS.",
+      hero_byline:"made by <a href=\"https://www.linkedin.com/in/rlevidev/\" target=\"_blank\" rel=\"noopener\">Raí Levi</a> · Fortaleza, BR",
+      hero_lede:"I build backend services and APIs, mostly in Java and Go. I like the parts most people skip — deploy and observability, the stuff that keeps a system alive after the demo. Lately I've been pairing that with AI-assisted workflows to move faster without cutting corners.",
+      cta_projects:"GitHub", cta_cv:"Download CV", cta_contact:"LinkedIn",
+      stat_go:"main stack", stat_java:"rest apis", stat_loc:"fortaleza, br",
+      proj_eyebrow:"projects", proj_title:"Featured Projects", proj_all:"View all ↗",
+      status_done:"done", status_wip:"in progress",
+      proj1_desc:"Fraud-detection API built for Rinha de Backend, a Brazilian backend competition. Matches card transactions against 100k reference records using vector similarity search, under tight CPU and memory limits.",
+      proj2_desc:"ATS-friendly resume generator. Fills a LaTeX template from structured data and compiles it to PDF. Go backend, static frontend.",
+      proj3_desc:"REST API for stock and inventory management.",
+      proj4_desc:"URL shortener service, accepted as the community solution in Backend Brasil's technical challenges repo.",
+      link_code:"view code →", link_open:"open project →",
+      traj_eyebrow:"trajectory", traj_title:"Trajectory",
+      traj_edu_head:"academic background", traj_exp_head:"professional experience",
+      certs_eyebrow:"certifications", certs_title:"Certifications",
+      soon:"coming soon",
+      contact_avail:"open to projects and freelance work",
+      contact_title:"Let's build something together?",
+      contact_cta:"Backend, deploy and monitoring — no fluff."
+    },
+    pt: {
+      nav_projects:"Projetos", nav_trajectory:"Trajetória", nav_certs:"Certificações", nav_cta:"Falar comigo ↗",
+      hero_eyebrow:"disponível para projetos",
+      hero_line1:"BACKEND", hero_line2:"ENGINEER", hero_highlight:"JAVA &amp; GO", hero_line3:"SEM ATALHO.",
+      hero_byline:"criado por <a href=\"https://www.linkedin.com/in/rlevidev/\" target=\"_blank\" rel=\"noopener\">Raí Levi</a> · Fortaleza, BR",
+      hero_lede:"Construo serviços e APIs de backend, principalmente em Java e Go. Gosto das partes que a maioria pula — deploy e observabilidade, o que mantém um sistema vivo depois da demo. Ultimamente venho combinando isso com fluxos assistidos por IA para ir mais rápido sem cortar caminho.",
+      cta_projects:"GitHub", cta_cv:"Baixar CV", cta_contact:"LinkedIn",
+      stat_go:"stack principal", stat_java:"apis rest", stat_loc:"fortaleza, br",
+      proj_eyebrow:"projetos", proj_title:"Projetos Destaque", proj_all:"Ver todos ↗",
+      status_done:"concluído", status_wip:"em desenvolvimento",
+      proj1_desc:"API de detecção de fraude construída para a Rinha de Backend, uma competição brasileira de backend. Compara transações de cartão contra 100 mil registros de referência usando busca por similaridade vetorial, sob limites rígidos de CPU e memória.",
+      proj2_desc:"Gerador de currículo ATS-friendly. Preenche um template LaTeX a partir de dados estruturados e compila para PDF. Backend em Go, frontend estático.",
+      proj3_desc:"API REST para gestão de estoque e inventário.",
+      proj4_desc:"Serviço encurtador de URLs, aceito como solução da comunidade no repositório de desafios técnicos do Backend Brasil.",
+      link_code:"ver código →", link_open:"abrir projeto →",
+      traj_eyebrow:"trajetória", traj_title:"Trajetória",
+      traj_edu_head:"formação acadêmica", traj_exp_head:"experiência profissional",
+      certs_eyebrow:"certificações", certs_title:"Certificações",
+      soon:"em breve",
+      contact_avail:"aberto a projetos e freelas",
+      contact_title:"Vamos construir algo juntos?",
+      contact_cta:"Backend, deploy e monitoramento — sem enrolação."
     }
   };
 
-  let currentLang = 'pt';
-  const langBtn = document.getElementById('langToggle');
-
-  function applyLang(lang) {
-    const t = dict[lang];
+  const langBtn = document.getElementById('lang-toggle');
+  function applyLang(lang){
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
-      if (t[key] !== undefined) el.innerHTML = t[key];
+      if(dict[lang][key] !== undefined) el.innerHTML = dict[lang][key];
     });
-    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
-    langBtn.textContent = lang === 'pt' ? '🇺🇸' : '🇧🇷';
+    langBtn.textContent = lang.toUpperCase();
+    root.setAttribute('data-lang', lang);
   }
-
   langBtn.addEventListener('click', () => {
-    currentLang = currentLang === 'pt' ? 'en' : 'pt';
-    applyLang(currentLang);
+    const current = root.getAttribute('data-lang') === 'en' ? 'pt' : 'en';
+    applyLang(current);
   });
-
-  applyLang(currentLang);
 </script>
 
 </body>
