@@ -1,0 +1,256 @@
+@import 'tailwindcss';
+@import '@ng-brutalism/ui/styles.css';
+
+/* ---------------------------------------------------------------------------
+   Design tokens — portfolio palette.
+   Colors/shapes not covered by provideNgBrutalism (background, ink, surface,
+   shadow color) live here; yellow/pink/mint/lavender/radius/border/font are set
+   inline at bootstrap by provideNgBrutalism.
+--------------------------------------------------------------------------- */
+:root {
+  --nb-background: #f3eedd;
+  --nb-foreground: #15130f;
+  --nb-border: #15130f;
+  --nb-shadow: #15130f;
+  --nb-surface: #ffffff;
+  --nb-surface-foreground: #15130f;
+  --nb-secondary-background: #f3eedd;
+  --nb-field-bg: #ffffff;
+}
+
+html[data-theme='dark'] {
+  --nb-background: #181611;
+  --nb-foreground: #f3eedd;
+  --nb-border: #f3eedd;
+  --nb-shadow: #000000;
+  --nb-surface: #211e17;
+  --nb-surface-foreground: #f3eedd;
+  --nb-secondary-background: #211e17;
+  --nb-field-bg: #211e17;
+}
+
+/* Legacy aliases so migrated CSS reads the same as before. */
+:root,
+html[data-theme='dark'] {
+  --ink: var(--nb-foreground);
+  --bg: var(--nb-background);
+  --panel: var(--nb-surface);
+  --shadow-color: var(--nb-shadow);
+  --yellow: var(--nb-yellow);
+  --pink: var(--nb-pink);
+  --mint: var(--nb-mint);
+  --violet: var(--nb-lavender);
+}
+
+html {
+  scroll-behavior: smooth;
+  /* overflow-x: clip (not hidden) so position: sticky keeps working —
+     hidden computes overflow-y to auto and breaks sticky descendants. */
+  overflow-x: clip;
+}
+
+body {
+  overflow-x: clip;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(circle, rgba(21, 19, 15, 0.08) 1px, transparent 1px),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420' viewBox='0 0 420 420'%3E%3Cg fill='none' stroke='%235b8f86' stroke-width='1.2' opacity='0.28'%3E%3Cpath d='M-20,60 Q90,10 210,60 T440,60'/%3E%3Cpath d='M-20,140 Q90,90 210,140 T440,140'/%3E%3Cpath d='M-20,220 Q90,170 210,220 T440,220'/%3E%3Cpath d='M-20,300 Q90,250 210,300 T440,300'/%3E%3Cpath d='M-20,380 Q90,330 210,380 T440,380'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 22px 22px, 420px 420px;
+  background-repeat: repeat, repeat;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+html[data-theme='dark'] body {
+  background-image:
+    radial-gradient(circle, rgba(243, 238, 221, 0.06) 1px, transparent 1px),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420' viewBox='0 0 420 420'%3E%3Cg fill='none' stroke='%235b8f86' stroke-width='1.2' opacity='0.22'%3E%3Cpath d='M-20,60 Q90,10 210,60 T440,60'/%3E%3Cpath d='M-20,140 Q90,90 210,140 T440,140'/%3E%3Cpath d='M-20,220 Q90,170 210,220 T440,220'/%3E%3Cpath d='M-20,300 Q90,250 210,300 T440,300'/%3E%3Cpath d='M-20,380 Q90,330 210,380 T440,380'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+a {
+  color: inherit;
+}
+
+.mono {
+  font-family: var(--nb-font-mono);
+}
+
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/* ---------- outer page frame ---------- */
+.page-frame {
+  position: relative;
+  width: calc(100% - 52px);
+  max-width: 1560px;
+  margin: 26px auto;
+  border: 4px solid var(--ink);
+  box-shadow: 12px 12px 0 var(--shadow-color);
+  background: var(--bg);
+}
+
+.corner {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  pointer-events: none;
+  z-index: 60;
+}
+
+.corner::before,
+.corner::after {
+  content: '';
+  position: absolute;
+  background: var(--ink);
+}
+
+.corner::before {
+  width: 100%;
+  height: 2px;
+  top: 0;
+  left: 0;
+}
+
+.corner::after {
+  width: 2px;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.corner-tl {
+  top: -11px;
+  left: -11px;
+}
+
+.corner-tr {
+  top: -11px;
+  right: -11px;
+  transform: scaleX(-1);
+}
+
+.corner-bl {
+  bottom: -11px;
+  left: -11px;
+  transform: scaleY(-1);
+}
+
+.corner-br {
+  bottom: -11px;
+  right: -11px;
+  transform: scale(-1, -1);
+}
+
+/* ---------- shared section chrome ---------- */
+section {
+  padding: 0;
+  scroll-margin-top: 110px;
+}
+
+.sec-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 0 0 34px;
+  padding-top: 22px;
+}
+
+.sec-eyebrow {
+  display: block;
+  margin-bottom: 6px;
+  font-family: var(--nb-font-mono);
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  font-weight: 700;
+  opacity: 0.6;
+  letter-spacing: 0.04em;
+}
+
+.sec-title {
+  margin: 0;
+  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+.sec-link {
+  font-family: var(--nb-font-mono);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-decoration: none;
+  border-bottom: 2px solid var(--ink);
+}
+
+/* ---------- "coming soon" placeholder ---------- */
+.soon-card {
+  border: var(--nb-border-width) dashed var(--ink);
+  padding: 40px 30px;
+  text-align: center;
+  background: repeating-linear-gradient(
+    135deg,
+    transparent,
+    transparent 10px,
+    rgba(21, 19, 15, 0.03) 10px,
+    rgba(21, 19, 15, 0.03) 20px
+  );
+}
+
+.soon-card.small {
+  padding: 34px 20px;
+}
+
+.stamp {
+  display: inline-block;
+  font-family: var(--nb-font-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  border: 2.5px solid var(--pink);
+  color: var(--pink);
+  padding: 8px 20px;
+  transform: rotate(-4deg);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+}
+
+footer {
+  padding: 26px 0 40px;
+  text-align: center;
+  font-family: var(--nb-font-mono);
+  font-size: 0.75rem;
+  opacity: 0.6;
+}
+
+@media (max-width: 900px) {
+  section {
+    scroll-margin-top: 160px;
+  }
+}
+
+@media (max-width: 640px) {
+  section {
+    scroll-margin-top: 200px;
+  }
+
+  .page-frame {
+    width: calc(100% - 24px);
+    margin: 12px auto;
+    /* side rules removed: they were the vertical bars boxing in the
+       skills marquee. Top/bottom rules and the side breathing room stay. */
+    border-width: 3px 0;
+    /* bottom-only offset, so the shadow stops drawing a dark bar on the right */
+    box-shadow: 0 7px 0 var(--shadow-color);
+  }
+
+  /* corner brackets read as stray vertical bars on narrow screens */
+  .corner {
+    display: none;
+  }
+}

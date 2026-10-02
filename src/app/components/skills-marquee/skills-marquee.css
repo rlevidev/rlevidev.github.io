@@ -1,0 +1,57 @@
+nb-marquee .nb-marquee-wrapper {
+  border-top-width: var(--nb-border-width);
+  border-bottom-width: var(--nb-border-width);
+  background-color: var(--panel);
+  color: var(--ink);
+}
+
+nb-marquee-item.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--nb-font-sans);
+  font-weight: 700;
+  font-size: 1.15rem;
+  padding: 0 34px;
+  white-space: nowrap;
+}
+
+.m-chip {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 42px;
+  height: 42px;
+  /* NbMarquee's wrapper is hard-coded to bg-white by the library, so the chip
+     anchors on white rather than --panel: multicolor logos (Tux, Java) lose
+     contrast on the dark surface. */
+  background: color-mix(in srgb, var(--skill-brand) 12%, #fff);
+  border: var(--nb-border-width) solid var(--ink);
+  box-shadow: 3px 3px 0 var(--shadow-color);
+}
+
+.m-ico {
+  display: block;
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  nb-marquee .nb-marquee-strip-1,
+  nb-marquee .nb-marquee-strip-2 {
+    animation: none;
+  }
+}
+
+@media (max-width: 640px) {
+  /* full-bleed: pull past the page-frame gutter so the band runs edge to edge */
+  nb-marquee {
+    margin-inline: -12px;
+  }
+
+  nb-marquee-item.marquee-item {
+    padding: 0 20px;
+    font-size: 1rem;
+  }
+}

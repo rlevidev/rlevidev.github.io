@@ -1,0 +1,36 @@
+.traj-col-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-bottom: var(--nb-border-width) solid var(--ink);
+  font-family: var(--nb-font-mono);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.traj-col-head.edu {
+  background: var(--mint);
+}
+
+.traj-col-head.exp {
+  background: var(--yellow);
+}
+
+.traj-ico {
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--panel);
+  border: 2px solid var(--ink);
+  font-size: 0.9rem;
+}
+
+.traj-col .soon-card {
+  border: none;
+  box-shadow: none;
+}

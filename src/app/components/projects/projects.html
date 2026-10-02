@@ -1,0 +1,50 @@
+<section id="projects" nbSection padding="none" class="wrap">
+  <div class="sec-head">
+    <div nbStack gap="xs">
+      <div class="sec-eyebrow">{{ state.t().proj_eyebrow }}</div>
+      <h2 class="sec-title">{{ state.t().proj_title }}</h2>
+    </div>
+    <a class="sec-link" [href]="socials.github" target="_blank" rel="noopener noreferrer">{{
+      state.t().proj_all
+    }}</a>
+  </div>
+
+  <div class="project-grid">
+    @for (project of projects; track project.title; let i = $index) {
+      <nb-card class="card" [attr.data-index]="i">
+        <nb-card-header>
+          <div nbCluster gap="sm" justify="between" align="start" wrap="wrap" class="card-top">
+            <nb-card-title>{{ project.title }}</nb-card-title>
+            <span nbChip [tone]="statusTone(project.status)" padding="sm" class="status">
+              {{ project.status === 'done' ? state.t().status_done : state.t().status_wip }}
+            </span>
+          </div>
+        </nb-card-header>
+
+        <nb-card-content nbTypography font="mono">
+          <nb-card-description nbText size="sm" tone="muted" class="card-desc">{{
+            state.t()[project.desc]
+          }}</nb-card-description>
+
+          <div nbChipGroup gap="sm" class="tag-row">
+            @for (tag of project.tags; track tag) {
+              <span nbChip padding="sm" class="tag">{{ tag }}</span>
+            }
+          </div>
+        </nb-card-content>
+
+        <nb-card-actions>
+          <a
+            nbButton
+            class="card-link"
+            [href]="project.href"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {{ project.link === 'code' ? state.t().link_code : state.t().link_open }}
+          </a>
+        </nb-card-actions>
+      </nb-card>
+    }
+  </div>
+</section>

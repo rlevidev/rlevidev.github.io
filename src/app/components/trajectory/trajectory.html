@@ -1,0 +1,26 @@
+<section id="trajectory" nbSection padding="none" class="wrap">
+  <div class="sec-head">
+    <div nbStack gap="xs">
+      <div class="sec-eyebrow">{{ state.t().traj_eyebrow }}</div>
+      <h2 class="sec-title">{{ state.t().traj_title }}</h2>
+    </div>
+  </div>
+
+  <div nbSplit ratio="1:1" gap="md" collapse="md" class="traj-grid">
+    @for (column of columns; track column.tone) {
+      <div nbSurface padding="none" class="traj-col">
+        <div
+          class="traj-col-head"
+          [class.edu]="column.tone === 'edu'"
+          [class.exp]="column.tone === 'exp'"
+        >
+          <span class="traj-ico" aria-hidden="true">{{ column.icon }}</span>
+          <span>{{ state.t()[column.headKey] }}</span>
+        </div>
+        <div class="soon-card small">
+          <nb-sticker shape="burst" tone="pink" rotate="-4">{{ state.t().soon }}</nb-sticker>
+        </div>
+      </div>
+    }
+  </div>
+</section>
