@@ -92,19 +92,31 @@ nav a:hover {
   color: var(--ink);
 }
 
-/* The header keeps its yellow background in both themes. */
-html[data-theme='dark'] header {
+/* The header keeps its yellow background in both themes. :host-context reaches
+   the <html> ancestor, which a bare `html[data-theme='dark']` selector cannot:
+   emulated encapsulation scopes every compound selector to this component. */
+:host-context(html[data-theme='dark']) header {
   box-shadow: 6px 6px 0 #15130f;
   border-color: #15130f;
 }
 
-html[data-theme='dark'] .brand-mark {
+:host-context(html[data-theme='dark']) header * {
+  color: #15130f;
+}
+
+/* `header *` would otherwise outrank this (it also targets .brand-mark), so the
+   mark is re-anchored on `header` to keep its yellow glyph on the dark chip. */
+:host-context(html[data-theme='dark']) header .brand-mark {
   background: #15130f;
   color: var(--yellow);
   border-color: #15130f;
 }
 
-html[data-theme='dark'] .icon-btn {
+:host-context(html[data-theme='dark']) nav a:hover {
+  border-color: #15130f;
+}
+
+:host-context(html[data-theme='dark']) .icon-btn {
   border-color: #15130f;
 }
 

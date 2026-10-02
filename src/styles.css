@@ -254,3 +254,23 @@ footer {
     display: none;
   }
 }
+
+/* ---------- skills marquee ----------
+   NbMarquee renders its wrapper and strips in its own template, so component
+   styles under app-skills-marquee cannot reach them (emulated encapsulation
+   scopes every compound selector). These live globally, keyed on the host. */
+app-skills-marquee .nb-marquee-wrapper {
+  border-top-width: var(--nb-border-width);
+  border-bottom-width: var(--nb-border-width);
+  background-color: var(--panel);
+  color: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* !important: NbMarquee's own scoped rule (.nb-marquee-strip-1[_ngcontent-*])
+     outranks a plain global selector and is injected after this file. */
+  app-skills-marquee .nb-marquee-strip-1,
+  app-skills-marquee .nb-marquee-strip-2 {
+    animation: none !important;
+  }
+}

@@ -4,6 +4,9 @@ import { Lang, TRANSLATIONS, Translations } from '../data/translations';
 
 export type Theme = 'light' | 'dark';
 
+/** BCP 47 tags per language, mirrored on <html lang>. */
+const HTML_LANG: Record<Lang, string> = { pt: 'pt-BR', en: 'en' };
+
 @Injectable({ providedIn: 'root' })
 export class PortfolioState {
   private readonly document = inject(DOCUMENT);
@@ -18,6 +21,9 @@ export class PortfolioState {
       const root = this.document.documentElement;
       root.setAttribute('data-theme', this.theme());
       root.setAttribute('data-lang', this.lang());
+      // Programmatic language of the page: screen readers need this to give the
+      // English copy an English voice instead of reading it as Portuguese.
+      root.setAttribute('lang', HTML_LANG[this.lang()]);
       root.classList.toggle('dark', this.theme() === 'dark');
     });
   }

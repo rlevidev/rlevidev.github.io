@@ -116,6 +116,12 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .cursor {
+    animation: none;
+  }
+}
+
 @media (max-width: 640px) {
   .term-frame {
     margin: 0 6px;

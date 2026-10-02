@@ -8,3 +8,11 @@
     </nb-marquee-item>
   }
 </nb-marquee>
+
+<!-- The marquee stays aria-hidden because it repeats the same items twice while
+     animating; this list exposes each skill once as plain text. -->
+<ul class="skills-list">
+  @for (skill of skills; track skill.label) {
+    <li>{{ skill.label }}</li>
+  }
+</ul>

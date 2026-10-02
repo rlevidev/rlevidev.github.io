@@ -9,7 +9,7 @@
   text-align: center;
 }
 
-html[data-theme='dark'] .contact-card {
+:host-context(html[data-theme='dark']) .contact-card {
   box-shadow: 8px 8px 0 var(--yellow);
 }
 
