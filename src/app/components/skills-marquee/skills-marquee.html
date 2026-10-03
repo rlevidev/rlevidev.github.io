@@ -1,0 +1,18 @@
+<nb-marquee duration="40s" aria-hidden="true">
+  @for (skill of skills; track skill.label) {
+    <nb-marquee-item class="marquee-item">
+      <span class="m-chip" [style.--skill-brand]="skill.brand">
+        <img class="m-ico" [src]="skill.icon" alt="" width="26" height="26" />
+      </span>
+      {{ skill.label }}
+    </nb-marquee-item>
+  }
+</nb-marquee>
+
+<!-- The marquee stays aria-hidden because it repeats the same items twice while
+     animating; this list exposes each skill once as plain text. -->
+<ul class="skills-list">
+  @for (skill of skills; track skill.label) {
+    <li>{{ skill.label }}</li>
+  }
+</ul>

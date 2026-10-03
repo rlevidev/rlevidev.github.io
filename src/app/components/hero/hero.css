@@ -1,0 +1,93 @@
+.hero {
+  padding-block: 64px 40px;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 56px;
+  align-items: start;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--violet);
+  border: 2.5px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--shadow-color);
+  padding: 6px 12px;
+  font-family: var(--nb-font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+
+/* nbDisplay writes `font-size: var(--nb-display-size, 4.75rem)` inline, so the
+   responsive clamp has to come in through that token, not a font-size rule. */
+.display {
+  --nb-display-size: clamp(2.6rem, 6vw, 4.6rem);
+  letter-spacing: -0.02em;
+  margin: 0 0 6px;
+  text-transform: uppercase;
+}
+
+.display-highlight {
+  display: inline-block;
+  background: var(--yellow);
+  border: var(--nb-border-width) solid var(--ink);
+  box-shadow: 6px 6px 0 var(--shadow-color);
+  padding: 2px 16px;
+  margin: 10px 0;
+}
+
+.lede {
+  font-family: var(--nb-font-mono);
+  max-width: 52ch;
+  margin: 22px 0 8px;
+}
+
+.byline {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  margin-bottom: 10px;
+}
+
+.byline a {
+  text-decoration: underline;
+}
+
+.cta-row {
+  margin: 28px 0 30px;
+}
+
+.stat-row {
+  align-items: flex-start;
+}
+
+.stat {
+  border: var(--nb-border-width) solid var(--ink);
+  box-shadow: 4px 4px 0 var(--shadow-color);
+  padding: 12px 16px;
+  min-width: 150px;
+  background: var(--panel);
+}
+
+.stat[data-tone='y'] {
+  background: var(--yellow);
+}
+
+.stat[data-tone='m'] {
+  background: var(--mint);
+}
+
+.stat[data-tone='p'] {
+  background: var(--pink);
+}
+
+@media (max-width: 900px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+}

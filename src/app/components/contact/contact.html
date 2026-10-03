@@ -1,0 +1,16 @@
+<section id="contact" nbSection padding="none" class="wrap">
+  <div nbSurface class="contact-card">
+    <div class="avail">{{ state.t().contact_avail }}</div>
+    <h2>{{ state.t().contact_title }}</h2>
+
+    <a nbButton tone="mint" class="contact-main-btn" [href]="socials.email"
+      >{{ state.t().contact_cta }} &#8594;</a
+    >
+
+    <div nbCluster gap="sm" justify="center" class="social-row">
+      <a [href]="socials.linkedin" target="_blank" rel="noopener noreferrer">LinkedIn @rlevidev</a>
+      <a [href]="socials.github" target="_blank" rel="noopener noreferrer">GitHub @rlevidev</a>
+      <a [href]="socials.email">rlevi.dev@gmail.com</a>
+    </div>
+  </div>
+</section>

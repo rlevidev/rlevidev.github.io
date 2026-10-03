@@ -1,0 +1,55 @@
+nb-marquee-item.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--nb-font-sans);
+  font-weight: 700;
+  font-size: 1.15rem;
+  padding: 0 34px;
+  white-space: nowrap;
+}
+
+.m-chip {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 42px;
+  height: 42px;
+  /* Tinted toward the band surface (--panel) so multicolor logos (Tux, Java)
+     keep contrast in both themes; the wrapper override lives in styles.css. */
+  background: color-mix(in srgb, var(--skill-brand) 12%, var(--panel));
+  border: var(--nb-border-width) solid var(--ink);
+  box-shadow: 3px 3px 0 var(--shadow-color);
+}
+
+.m-ico {
+  display: block;
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+/* Available to screen readers, removed from the visual layout. */
+.skills-list {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 640px) {
+  /* full-bleed: pull past the page-frame gutter so the band runs edge to edge */
+  nb-marquee {
+    margin-inline: -12px;
+  }
+
+  nb-marquee-item.marquee-item {
+    padding: 0 20px;
+    font-size: 1rem;
+  }
+}

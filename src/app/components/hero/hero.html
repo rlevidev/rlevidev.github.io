@@ -1,0 +1,47 @@
+<div class="wrap hero">
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow">
+        <span nbStatusDot state="online" size="sm"></span>{{ state.t().hero_eyebrow }}
+      </div>
+
+      <h1 nbDisplay size="xl" weight="extrabold" leading="tight" class="display">
+        {{ state.t().hero_line1 }}<br />
+        {{ state.t().hero_line2 }}<br />
+        <span class="display-highlight">{{ state.t().hero_highlight }}</span
+        ><br />
+        {{ state.t().hero_line3 }}
+      </h1>
+
+      <div class="byline mono">
+        {{ state.t().hero_byline_before
+        }}<a [href]="socials.linkedin" target="_blank" rel="noopener noreferrer">Raí Levi</a
+        >{{ state.t().hero_byline_after }}
+      </div>
+
+      <p nbText size="md" leading="relaxed" class="lede">{{ state.t().hero_lede }}</p>
+
+      <div nbCluster gap="md" class="cta-row">
+        <a nbButton tone="pink" [href]="socials.github" target="_blank" rel="noopener noreferrer">{{
+          state.t().cta_projects
+        }}</a>
+        <a nbButton [href]="socials.linkedin" target="_blank" rel="noopener noreferrer">{{
+          state.t().cta_contact
+        }}</a>
+      </div>
+
+      <div nbCluster gap="md" class="stat-row">
+        @for (stat of stats; track stat.value) {
+          <nb-stat
+            class="stat"
+            [attr.data-tone]="stat.tone"
+            [value]="stat.value"
+            [label]="state.t()[stat.label]"
+          />
+        }
+      </div>
+    </div>
+
+    <app-terminal-card />
+  </div>
+</div>

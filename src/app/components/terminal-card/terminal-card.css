@@ -1,0 +1,129 @@
+.term-wrap {
+  position: relative;
+  padding: 18px 8px 30px 8px;
+}
+
+.term-frame {
+  position: relative;
+  padding: 20px;
+}
+
+.term-badge {
+  position: absolute;
+  top: -20px;
+  right: 14px;
+  z-index: 2;
+  background: linear-gradient(135deg, var(--pink), var(--violet));
+  color: #fff;
+  border: 2.5px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--shadow-color);
+  padding: 6px 14px;
+  font-family: var(--nb-font-mono);
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+.tape {
+  position: absolute;
+  top: -18px;
+  left: 26px;
+  width: 90px;
+  height: 34px;
+  background: #fdfaf0cc;
+  border: 2px solid var(--ink);
+  transform: rotate(-7deg);
+}
+
+.pin {
+  position: absolute;
+  bottom: -16px;
+  right: -14px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--violet);
+  border: 2.5px solid var(--ink);
+}
+
+.note {
+  position: absolute;
+  bottom: -22px;
+  left: -20px;
+  width: 64px;
+  height: 54px;
+  background: var(--pink);
+  border: 2.5px solid var(--ink);
+  transform: rotate(8deg);
+  box-shadow: 3px 3px 0 var(--shadow-color);
+}
+
+.terminal {
+  background: #15130f;
+  border: 2.5px solid var(--ink);
+  color: #dce9da;
+  font-family: var(--nb-font-mono);
+  font-size: 0.82rem;
+  line-height: 1.75;
+  padding: 18px 18px 22px;
+}
+
+.term-dots {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.term-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.term-dots .r {
+  background: var(--pink);
+}
+
+.term-dots .a {
+  background: var(--yellow);
+}
+
+.term-dots .g {
+  background: var(--mint);
+}
+
+.term-line .p {
+  color: var(--mint);
+}
+
+.term-line .c {
+  color: var(--bg);
+  opacity: 0.55;
+}
+
+.cursor {
+  display: inline-block;
+  width: 8px;
+  height: 14px;
+  background: var(--mint);
+  vertical-align: middle;
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor {
+    animation: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .term-frame {
+    margin: 0 6px;
+  }
+}
