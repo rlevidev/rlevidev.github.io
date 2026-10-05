@@ -8,13 +8,13 @@
    inline at bootstrap by provideNgBrutalism.
 --------------------------------------------------------------------------- */
 :root {
-  --nb-background: #f3eedd;
+  --nb-background: #ffffff;
   --nb-foreground: #15130f;
   --nb-border: #15130f;
   --nb-shadow: #15130f;
   --nb-surface: #ffffff;
   --nb-surface-foreground: #15130f;
-  --nb-secondary-background: #f3eedd;
+  --nb-secondary-background: #f4f4f0;
   --nb-field-bg: #ffffff;
 }
 
@@ -40,7 +40,32 @@ html[data-theme='dark'] {
   --pink: var(--nb-pink);
   --mint: var(--nb-mint);
   --violet: var(--nb-lavender);
+  /* Fixed in both themes: it is used as text, so it must stay readable on the
+     light canvas and on the dark one without a second token. */
+  --blue: #1552a3;
 }
+
+/* ---------- page canvas ----------
+   White base + fine checkerboard grid + soft organic curves. The header keeps
+   its own yellow bar, so this decoration only paints the page behind it. */
+body {
+  background-color: var(--nb-background);
+  background-image:
+    linear-gradient(rgba(21, 19, 15, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(21, 19, 15, 0.05) 1px, transparent 1px),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='520' viewBox='0 0 520 520'%3E%3Cg fill='none' stroke='%231552a3' stroke-width='1.4' opacity='0.16'%3E%3Cpath d='M-40,90 Q120,20 260,90 T560,90'/%3E%3Cpath d='M-40,190 Q120,120 260,190 T560,190'/%3E%3Cpath d='M-40,290 Q120,220 260,290 T560,290'/%3E%3Cpath d='M-40,390 Q120,320 260,390 T560,390'/%3E%3Cpath d='M-40,490 Q120,420 260,490 T560,490'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 26px 26px, 26px 26px, 520px 520px;
+  background-repeat: repeat, repeat, repeat;
+}
+
+html[data-theme='dark'] body {
+  background-color: var(--nb-background);
+  background-image:
+    linear-gradient(rgba(243, 238, 221, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(243, 238, 221, 0.05) 1px, transparent 1px),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='520' viewBox='0 0 520 520'%3E%3Cg fill='none' stroke='%238ae9ff' stroke-width='1.4' opacity='0.1'%3E%3Cpath d='M-40,90 Q120,20 260,90 T560,90'/%3E%3Cpath d='M-40,190 Q120,120 260,190 T560,190'/%3E%3Cpath d='M-40,290 Q120,220 260,290 T560,290'/%3E%3Cpath d='M-40,390 Q120,320 260,390 T560,390'/%3E%3Cpath d='M-40,490 Q120,420 260,490 T560,490'/%3E%3C/g%3E%3C/svg%3E");
+}
+
 
 html {
   scroll-behavior: smooth;
@@ -53,18 +78,8 @@ body {
   overflow-x: clip;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  background-image:
-    radial-gradient(circle, rgba(21, 19, 15, 0.08) 1px, transparent 1px),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420' viewBox='0 0 420 420'%3E%3Cg fill='none' stroke='%235b8f86' stroke-width='1.2' opacity='0.28'%3E%3Cpath d='M-20,60 Q90,10 210,60 T440,60'/%3E%3Cpath d='M-20,140 Q90,90 210,140 T440,140'/%3E%3Cpath d='M-20,220 Q90,170 210,220 T440,220'/%3E%3Cpath d='M-20,300 Q90,250 210,300 T440,300'/%3E%3Cpath d='M-20,380 Q90,330 210,380 T440,380'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 22px 22px, 420px 420px;
-  background-repeat: repeat, repeat;
+  /* background layers live in the canvas block above */
   transition: background 0.2s ease, color 0.2s ease;
-}
-
-html[data-theme='dark'] body {
-  background-image:
-    radial-gradient(circle, rgba(243, 238, 221, 0.06) 1px, transparent 1px),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420' viewBox='0 0 420 420'%3E%3Cg fill='none' stroke='%235b8f86' stroke-width='1.2' opacity='0.22'%3E%3Cpath d='M-20,60 Q90,10 210,60 T440,60'/%3E%3Cpath d='M-20,140 Q90,90 210,140 T440,140'/%3E%3Cpath d='M-20,220 Q90,170 210,220 T440,220'/%3E%3Cpath d='M-20,300 Q90,250 210,300 T440,300'/%3E%3Cpath d='M-20,380 Q90,330 210,380 T440,380'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 a {

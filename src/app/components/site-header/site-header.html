@@ -1,12 +1,6 @@
 <header>
   <div class="header-inner">
-    <div class="brand">
-      <div class="brand-mark mono">RL</div>
-      <div class="brand-text">
-        <div class="name">{{ state.t().brand_name }}</div>
-        <div class="handle">@rlevidev</div>
-      </div>
-    </div>
+    <div class="brand mono" [attr.title]="state.t().brand_name">RL</div>
 
     <nav>
       <a href="#projects">{{ state.t().nav_projects }}</a>
@@ -14,32 +8,17 @@
       <a href="#certs">{{ state.t().nav_certs }}</a>
     </nav>
 
-    <div class="header-actions">
-      <button
-        type="button"
-        nbIconButton
-        size="sm"
-        shape="square"
-        class="icon-btn"
-        (click)="state.toggleTheme()"
-        [attr.aria-label]="state.t().theme_label"
-        [title]="state.t().theme_label"
-      >
-        {{ themeIcon() }}
-      </button>
-      <button
-        type="button"
-        nbIconButton
-        size="sm"
-        shape="square"
-        class="icon-btn mono"
-        (click)="state.toggleLang()"
-        [attr.aria-label]="state.t().lang_label"
-        [title]="state.t().lang_label"
-      >
-        {{ langLabel() }}
-      </button>
-      <a nbButton tone="mint" href="#contact">{{ state.t().nav_cta }}</a>
-    </div>
+    <button
+      type="button"
+      nbButton
+      size="sm"
+      tone="white"
+      class="mono lang-toggle"
+      (click)="state.toggleLang()"
+      [attr.aria-label]="state.t().lang_label"
+      [title]="state.t().lang_label"
+    >
+      {{ langLabel() }}
+    </button>
   </div>
 </header>

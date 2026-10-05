@@ -15,12 +15,6 @@ export interface Project {
   readonly desc: 'proj1_desc' | 'proj2_desc' | 'proj3_desc' | 'proj4_desc';
 }
 
-export interface Stat {
-  readonly value: string;
-  readonly label: 'stat_java' | 'stat_go' | 'stat_loc';
-  readonly tone: 'y' | 'm' | 'p';
-}
-
 export const SKILLS: readonly Skill[] = [
   { label: 'Go', icon: 'icons/go.svg', brand: '#00add8' },
   { label: 'Java', icon: 'icons/java.svg', brand: '#e76f00' },
@@ -64,12 +58,6 @@ export const PROJECTS: readonly Project[] = [
     link: 'code',
     desc: 'proj4_desc',
   },
-];
-
-export const STATS: readonly Stat[] = [
-  { value: 'Java', label: 'stat_java', tone: 'y' },
-  { value: 'Go', label: 'stat_go', tone: 'm' },
-  { value: 'GMT-3', label: 'stat_loc', tone: 'p' },
 ];
 
 export const SOCIALS: Readonly<{ linkedin: string; github: string; email: string }> = {
