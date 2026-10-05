@@ -5,14 +5,14 @@ header {
   background: var(--yellow);
   margin: 18px 18px 0 18px;
   border: var(--nb-border-width) solid var(--ink);
-  box-shadow: 6px 6px 0 var(--ink);
+  box-shadow: 5px 5px 0 var(--ink);
 }
 
 .header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 32px;
+  padding: 8px 18px;
   gap: 16px;
   flex-wrap: wrap;
 }
@@ -20,41 +20,22 @@ header {
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
-}
-
-.brand-mark {
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
   justify-content: center;
+  min-width: 40px;
+  height: 32px;
+  padding: 0 10px;
   background: var(--ink);
   color: var(--yellow);
   border: 2.5px solid var(--ink);
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   letter-spacing: -0.02em;
-}
-
-.brand-text .name {
-  font-weight: 800;
-  font-size: 1.05rem;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-}
-
-.brand-text .handle {
-  font-family: var(--nb-font-mono);
-  font-size: 0.72rem;
-  opacity: 0.65;
-  color: var(--ink);
 }
 
 nav {
   display: flex;
   gap: 28px;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 700;
   position: absolute;
   left: 50%;
@@ -72,52 +53,31 @@ nav a:hover {
   border-color: var(--ink);
 }
 
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.icon-btn {
-  width: 40px;
-  height: 40px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 2.5px solid var(--ink);
-  background: transparent;
-  box-shadow: none;
-  cursor: pointer;
-  font-size: 1rem;
+.lang-toggle {
   color: var(--ink);
+  min-width: 48px;
 }
 
-/* The header keeps its yellow background in both themes. :host-context reaches
-   the <html> ancestor, which a bare `html[data-theme='dark']` selector cannot:
-   emulated encapsulation scopes every compound selector to this component. */
+/* The header keeps its yellow background in both themes, so its text needs a
+   fixed dark ink instead of the theme's cream. :host-context reaches the <html>
+   ancestor, which a bare `html[data-theme='dark']` selector cannot: emulated
+   encapsulation scopes every compound selector to this component. */
 :host-context(html[data-theme='dark']) header {
-  box-shadow: 6px 6px 0 #15130f;
+  box-shadow: 5px 5px 0 #15130f;
   border-color: #15130f;
 }
 
-:host-context(html[data-theme='dark']) header * {
+:host-context(html[data-theme='dark']) nav a,
+:host-context(html[data-theme='dark']) nav a:hover,
+:host-context(html[data-theme='dark']) .lang-toggle {
   color: #15130f;
+  border-color: #15130f;
 }
 
-/* `header *` would otherwise outrank this (it also targets .brand-mark), so the
-   mark is re-anchored on `header` to keep its yellow glyph on the dark chip. */
-:host-context(html[data-theme='dark']) header .brand-mark {
+:host-context(html[data-theme='dark']) .brand {
   background: #15130f;
+  border-color: #15130f;
   color: var(--yellow);
-  border-color: #15130f;
-}
-
-:host-context(html[data-theme='dark']) nav a:hover {
-  border-color: #15130f;
-}
-
-:host-context(html[data-theme='dark']) .icon-btn {
-  border-color: #15130f;
 }
 
 @media (max-width: 900px) {
@@ -130,8 +90,8 @@ nav a:hover {
     flex-wrap: wrap;
     row-gap: 6px;
     gap: 16px;
-    padding-top: 12px;
-    margin-top: 10px;
+    padding-top: 10px;
+    margin-top: 8px;
     border-top: 2px solid var(--ink);
   }
 }
@@ -144,32 +104,11 @@ nav a:hover {
   }
 
   .header-inner {
-    padding: 12px 16px;
+    padding: 8px 12px;
   }
 
   nav {
     gap: 10px;
     font-size: 0.85rem;
-    padding-top: 10px;
-    margin-top: 8px;
-  }
-
-  .brand-mark {
-    width: 38px;
-    height: 38px;
-  }
-
-  .brand-text .name {
-    font-size: 0.95rem;
-  }
-
-  .icon-btn {
-    width: 34px;
-    height: 34px;
-    font-size: 0.9rem;
-  }
-
-  .header-actions {
-    gap: 8px;
   }
 }

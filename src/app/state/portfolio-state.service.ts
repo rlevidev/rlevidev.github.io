@@ -5,7 +5,10 @@ import { Lang, TRANSLATIONS, Translations } from '../data/translations';
 export type Theme = 'light' | 'dark';
 
 /** BCP 47 tags per language, mirrored on <html lang>. */
-const HTML_LANG: Record<Lang, string> = { pt: 'pt-BR', en: 'en' };
+const HTML_LANG: Record<Lang, string> = { pt: 'pt-BR', en: 'en', es: 'es' };
+
+/** Target language of the next `toggleLang()` press, in cycle order. */
+const NEXT_LANG: Record<Lang, Lang> = { pt: 'en', en: 'es', es: 'pt' };
 
 @Injectable({ providedIn: 'root' })
 export class PortfolioState {
@@ -33,6 +36,6 @@ export class PortfolioState {
   }
 
   toggleLang(): void {
-    this.lang.update((value) => (value === 'pt' ? 'en' : 'pt'));
+    this.lang.update((value) => NEXT_LANG[value]);
   }
 }
